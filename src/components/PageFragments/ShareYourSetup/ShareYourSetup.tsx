@@ -1,6 +1,7 @@
 import classes from './ShareYourSetup.module.css';
 import Image from 'next/image'
-import share from './share.png';
+import share from './share.jpg';
+// import nissanCardPath from '@public/images/discovery-section/nissan-card.png'
 
 
 export function ShareYourSetup() {
@@ -8,12 +9,12 @@ export function ShareYourSetup() {
         <div className={classes.component}>
             <div className={classes.wrapper}>
                 <p className={classes.description}>
-                    Share your setup with
+                    Purchase your dream today!
                 </p>
                 <h3 className={classes.title}>
-                    #TrendingFurniture
+                    #DreamCar
                 </h3>
-                <Image src={share} className={classes.image} alt="#TrendingFurniture" title="#TrendingFurniture" />
+                <Image src={share} className={classes.image} alt="#TrendingCars" title="#TrendingCars" />
             </div>
         </div>
     )

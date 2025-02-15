@@ -73,9 +73,18 @@ const Footer = () => {
 	return (
 		<footer className='bg-gray-100/10 w-full p-2 sm:px-0 flex flex-col item-center'>
 			<section className='sm:grid-cols-3 gap-4 sm:gap-8 lg:gap-16 mt-2 mx-auto max-w-[1400px] w-full grid py-4 lg:py-16'>
-				<Link href='/' className='col-span-1'>
-					<LogoImage className='w-[50px] sm:w-[80px] h-fit' />
-				</Link>
+				<div className="flex flex-col gap-2">
+					<div className="flex ">
+						<Link href='/' className='col-span-1 '>
+							<LogoImage className='w-[50px] sm:w-[80px] h-fit' />
+						</Link>
+						<p className="text-3xl text-primary ml-2 font-bold">Nest Wheel Auto</p>
+					</div>
+
+					<p className="text-sm">
+						We specialize in providing a wide range of car styling accessories & components. Discover how we can enhance your vehicles aesthetics and functionality.
+					</p>
+				</div>
 
 				<div className='flex sm:items-center w-fit sm:mx-auto gap-6'>
 					<Link
@@ -135,7 +144,7 @@ const Footer = () => {
 					</Link>
 				</div>
 				<div className='text-secondary-500 text-xs slg:text-sm font-[400] leading-[1.2]'>
-					Copyright&nbsp;@ {currentYear}&nbsp;Real Electronics Alright Reserved.
+					Copyright&nbsp;@ {currentYear}&nbsp;Nest Wheels Auto Alright Reserved.
 				</div>
 			</div>
 		</footer>

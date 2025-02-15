@@ -188,7 +188,6 @@ const Header = () => {
 							<LogoImage className='w-[80px] h-fit' />
 						</Link>
 						<div className='flex items-center gap-2.5'>
-							<span>Pages</span>
 							<div
 								className='p-2 hover:bg-primary/20 rounded-full cursor-pointer hover:scale-110 transition-[.4]'
 								onClick={toggleDrawer}

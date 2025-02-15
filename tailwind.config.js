@@ -8,6 +8,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
+				nunito: [ "NunitoSans_10pt-Light" ],
 				poppins: ["var(--font-poppins)", "sans-serif"],
 			},
 			backgroundImage: {
@@ -29,7 +30,7 @@ module.exports = {
 					100: "#E4E2DA", // Very light gray with warmth
   					200: "#B0AC9F", // Muted medium gray
 				},
-				primary: "#B88E2F", // Deep gold for primary accents
+				primary: "#F4A100", // Deep gold for primary accents
 				effect: "#FFD700", // Golden yellow for highlighting effects
 				primaryColor: {
 					100: "#00BFFF", // Sky blue
