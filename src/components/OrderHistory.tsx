@@ -49,7 +49,9 @@ const OrderHistory = ({
 			</td>
 
 			<td className='px-5 py-3 leading-6 text-center whitespace-nowrap'>
-				<span className='text-sm'>{FormatMoney2(total)}</span>
+				<span className='text-sm'>
+					<FormatMoney2 value={total} />
+				</span>
 			</td>
 		</>
 	);

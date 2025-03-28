@@ -91,7 +91,7 @@ const Uploader = ({ setUploadImage, imageUrl }) => {
 				<div className="w-24 h-24'">{thumbs}</div>
 
 				{imageUrl && (
-					<div className='bg-primaryColor-300 text-white p-1 rounded-md'>
+					<div className='bg-primary text-white p-1 rounded-md'>
 						<h4 className='text-xs'>Current Upload</h4>
 						<Link target='_blank' href={imageUrl}>
 							<Picture

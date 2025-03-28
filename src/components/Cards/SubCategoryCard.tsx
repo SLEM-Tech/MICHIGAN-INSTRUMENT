@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../config/store";
 import Picture from "../picture/Picture";
 import Link from "next/link";
 import { convertToSlug } from "@constants";
+import { useAppSelector } from "../hooks";
 
 interface SubCategoryCardProps {
 	id?: string;
@@ -12,7 +11,7 @@ interface SubCategoryCardProps {
 	name: string;
 }
 const SubCategoryCard = ({ id, image, name }: SubCategoryCardProps) => {
-	const { data } = useSelector((state: RootState) => state.subCategoryId);
+	const { data } = useAppSelector((state) => state.subCategoryId);
 
 	return (
 		<Link
@@ -40,7 +39,7 @@ const SubCategoryCard = ({ id, image, name }: SubCategoryCardProps) => {
 
 			<h4
 				dangerouslySetInnerHTML={{ __html: name }}
-				className='text-primaryColor-100 font-semibold leading-[1.5rem] pb-2 text-center'
+				className='text-primary font-semibold leading-[1.5rem] pb-2 text-center'
 			/>
 		</Link>
 	);

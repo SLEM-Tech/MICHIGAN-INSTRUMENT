@@ -1167,3 +1167,26 @@ export const formatAmountToCurrency = (amount: number) => {
 		currency: "NGN",
 	}).format(amount);
 };
+
+export const currencyOptions: {
+	code: string;
+	label: string;
+	symbol: string;
+	country: string;
+	countryCode: string; // Added country code
+}[] = [
+	{
+		code: "NGN",
+		label: "Nigerian Naira (₦)",
+		symbol: "₦",
+		country: "Nigeria",
+		countryCode: "NG", // Added country code for Nigeria
+	},
+	{
+		code: "USD",
+		label: "US Dollar ($)",
+		symbol: "$",
+		country: "United States",
+		countryCode: "US", // Added country code for United States
+	},
+];

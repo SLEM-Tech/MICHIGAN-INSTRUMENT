@@ -40,7 +40,7 @@ const BuyNowPayLaterSuccessModal = () => {
 				</span>
 				<button
 					onClick={handleOpenModalClick}
-					className='bg-primary px-8 md:px-0 md:w-4/5 py-2 text-white rounded-md hover:bg-primaryColor-100 text-xs md:text-base'
+					className='bg-primary px-8 md:px-0 md:w-4/5 py-2 text-white rounded-md hover:bg-primary text-xs md:text-base'
 				>
 					OK Continue
 				</button>

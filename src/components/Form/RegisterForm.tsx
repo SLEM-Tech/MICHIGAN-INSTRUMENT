@@ -257,7 +257,7 @@ const RegisterForm = () => {
 
 						<button
 							type='submit'
-							className={`w-full flex items-center justify-center py-2 md:py-3 text-sm md:text-base mt-3 md:mt-0 transition text-white rounded-sm mb-2 hover:bg-primaryColor-100 ${
+							className={`w-full flex items-center justify-center py-2 md:py-3 text-sm md:text-base mt-3 md:mt-0 transition text-white rounded-sm mb-2 hover:bg-primary ${
 								formik.isValid
 									? "bg-primary cursor-pointer"
 									: "bg-primary/60 cursor-not-allowed"

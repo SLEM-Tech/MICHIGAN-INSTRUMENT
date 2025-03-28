@@ -62,7 +62,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
 			<button
 				type='button'
-				className='ptext-primary font-semibold transition bg-primary hover:text-primaryColor-200 focus:outline-none focus:ring focus:border-blue-300 text-xl size-8 rounded-full'
+				className='ptext-primary font-semibold transition bg-primary hover:text-primary focus:outline-none focus:ring focus:border-blue-300 text-xl size-8 rounded-full'
 				onClick={handleSearchClick}
 			>
 				{isLoading ? (

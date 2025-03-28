@@ -494,23 +494,25 @@ const BillInfoForm = () => {
 							</h5>
 							<div className='flex justify-between items-center text-sm sm:text-base font-[400] pb-4'>
 								<h4>Subtotal</h4>
-								<h4>{FormatMoney2(calculateSubtotal())}</h4>
+								<h4>
+									<FormatMoney2 value={calculateSubtotal()} />
+								</h4>
 							</div>
 							<div className='flex justify-between items-center text-sm sm:text-base font-[400] mt-3 pb-4 border border-secondary-700 border-t-0 border-r-0 border-l-0'>
 								<h4>Discounted Amount</h4>
-								<h4>{discount ? FormatMoney2(discount) : 0}</h4>
+								<h4>{discount ? <FormatMoney2 value={discount} /> : 0}</h4>
 							</div>
 							<div className='flex justify-between items-center mt-3 pb-4'>
 								<h4 className='text-sm sm:text-base font-bold text-secondary-400'>
 									Total
 								</h4>
 								<h4 className='text-base sm:text-xl font-bold text-secondary-400'>
-									{FormatMoney(calculateTotal())}
+									<FormatMoney2 value={calculateSubtotal()} />
 								</h4>
 							</div>
 							<button
 								type='submit'
-								className={`flex w-full justify-center items-center py-2 sm:py-3 px-14 mt-2 sm:mt-4 rounded-md text-white transition font-bold text-base hover:bg-primaryColor-100 ${
+								className={`flex w-full justify-center items-center py-2 sm:py-3 px-14 mt-2 sm:mt-4 rounded-md text-white transition font-bold text-base hover:bg-primary ${
 									formik.isValid
 										? "bg-primary cursor-pointer"
 										: "bg-primary/60 cursor-not-allowed"

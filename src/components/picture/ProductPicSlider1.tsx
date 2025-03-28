@@ -55,8 +55,8 @@ const ProductPicSlider1 = ({
 						alt={`advertisement-image-${index}`}
 						loading='lazy'
 						className={`${pictureClassName} ${
-							mainProductImage === image && "border-2 border-primaryColor-100"
-						} hover:border-2 hover:border-primaryColor-100 w-[90px] h-[80px] mx-auto p-2`}
+							mainProductImage === image && "border-2 border-primary"
+						} hover:border-2 hover:border-primary w-[90px] h-[80px] mx-auto p-2`}
 					/>
 				</SwiperSlide>
 			))}

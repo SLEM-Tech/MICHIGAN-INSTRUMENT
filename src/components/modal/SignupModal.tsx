@@ -24,7 +24,7 @@ const SignupModal: React.FC<ModalProps> = ({
 		// router.push("/user/login");
 	};
 	const handleCloseModalClick = () => {
-		setIsOpen(false)
+		setIsOpen(false);
 	};
 
 	return (
@@ -39,13 +39,13 @@ const SignupModal: React.FC<ModalProps> = ({
 				<div className='flex w-full justify-center gap-4 mt-3'>
 					<button
 						onClick={handleCloseModalClick}
-						className='bg-primaryColor-300 w-fit px-8 md:px-12 py-2 text-white rounded-md hover:bg-primaryColor-100 text-xs md:text-base transition'
+						className='bg-primary w-fit px-8 md:px-12 py-2 text-white rounded-md hover:bg-primary text-xs md:text-base transition'
 					>
 						Cancel
 					</button>
 					<button
 						onClick={onClose}
-						className='bg-primary px-8 md:px-12 py-2 text-white rounded-md hover:bg-primaryColor-100 text-xs md:text-base transition'
+						className='bg-primary px-8 md:px-12 py-2 text-white rounded-md hover:bg-primary text-xs md:text-base transition'
 					>
 						{buttonText}
 					</button>

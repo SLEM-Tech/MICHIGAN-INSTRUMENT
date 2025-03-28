@@ -94,11 +94,19 @@ const MainProductCard = ({ items }: MainProductCardProps) => {
 				<div className='flex justify-between items-center'>
 					<div className=''>
 						<h4 className='stroke-black text-xs text-start line-through text-[#ccc]'>
-							{FormatMoney2(parseInt(items?.regular_price))}
+							{parseInt(items?.regular_price) ? (
+								<FormatMoney2 value={parseInt(items?.regular_price)} />
+							) : (
+								"Out of Stock"
+							)}
 						</h4>
 
 						<h4 className='text-sm sm:text-base text-primary font-semibold leading-[1.8]'>
-							{FormatMoney2(parseInt(items?.sale_price))}
+							{parseInt(items?.regular_price) ? (
+								<FormatMoney2 value={parseInt(items?.regular_price)} />
+							) : (
+								"Out of Stock"
+							)}
 						</h4>
 					</div>
 

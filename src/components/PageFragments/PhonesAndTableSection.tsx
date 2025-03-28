@@ -44,7 +44,7 @@ const PhonesAndTableSection = ({
 		<section className='flex flex-col w-full bg-[#FDF7FD] slg:mt-6'>
 			<div
 				className={`${
-					title === "Phones & Tablets" ? " bg-primary" : " bg-primaryColor-300"
+					title === "Phones & Tablets" ? " bg-primary" : " bg-primary"
 				} flex w-full justify-between text-xs lg:text-sm px-8 py-3`}
 			>
 				<span className='text-white'>{title}</span>

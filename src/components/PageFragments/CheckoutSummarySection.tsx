@@ -23,7 +23,9 @@ const CheckoutSummarySection = ({
 			<h5 className='text-base sm:text-2xl font-semibold'>Summary</h5>
 			<div className='flex justify-between items-center text-sm sm:text-base font-[400] mt-6 pb-4 border border-secondary-700 border-t-0 border-r-0 border-l-0'>
 				<h4>Subtotal</h4>
-				<h4>{FormatMoney2(calculateSubtotal())}</h4>
+				<h4>
+					<FormatMoney2 value={calculateSubtotal()} />
+				</h4>
 			</div>
 
 			<div className='flex justify-between items-center mt-6 pb-4'>
@@ -31,7 +33,7 @@ const CheckoutSummarySection = ({
 					Total
 				</h4>
 				<h4 className='text-sm sm:text-xl font-bold text-secondary-400'>
-					{FormatMoney(calculateSubtotal())}
+					<FormatMoney2 value={calculateSubtotal()} />
 				</h4>
 			</div>
 			<Link
@@ -41,7 +43,7 @@ const CheckoutSummarySection = ({
 				className={`flex w-full justify-center items-center py-3 mt-4 rounded-md text-white ${
 					calculateSubtotal() === 0
 						? "bg-red-500/50"
-						: "hover:bg-primaryColor-100 bg-primary"
+						: "hover:bg-primary bg-primary"
 				} transition font-bold text-sm sm:text-base`}
 			>
 				{calculateSubtotal() === 0

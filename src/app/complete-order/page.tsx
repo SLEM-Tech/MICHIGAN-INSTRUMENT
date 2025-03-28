@@ -146,7 +146,7 @@ const Page = () => {
 						onClick={handleSubmit}
 						className={`bg-primary text-white text-sm sm:text-base w-full ${
 							isLoading ? "px-20" : "px-3 sm:px-6"
-						} py-2 sm:py-3 rounded-md hover:bg-primaryColor-100`}
+						} py-2 sm:py-3 rounded-md hover:bg-primary`}
 					>
 						{isLoading ? (
 							<ClipLoader color='#d4d3d3' size={20} />

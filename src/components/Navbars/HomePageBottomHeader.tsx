@@ -12,7 +12,7 @@ const HomePageBottomHeader = () => {
 	const phoneNumber = "09160001343";
 	return (
 		<nav
-			className={`hidden slg:flex justify-center gap-24 items-center w-full py-3 bg-primaryColor-300 transition`}
+			className={`hidden slg:flex justify-center gap-24 items-center w-full py-3 bg-primary transition`}
 		>
 			<div className='flex w-fit gap-8 overflow-hidden'>
 				{headerNavLinks.map((link) => (

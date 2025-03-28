@@ -126,11 +126,7 @@ const SortedProducts = () => {
 	return (
 		<div className='mb-8 lg:mb-16'>
 			<div className=''>
-				{
-					isLoading && (
-						<MainLoader />
-					)
-				}
+				{isLoading && <MainLoader />}
 				{categories
 					?.filter((category: CategoryType) => category?.count > 0)
 					?.slice(0, 5)
@@ -191,7 +187,7 @@ const SortedProducts = () => {
 										"-" +
 										category?.id
 									}`}
-									className='bg-primary font-semibold w-fit capitalize hover:bg-primaryColor-400 transition-[.3] hover:scale-105 text-white py-3 px-5 sm:px-7 rounded-md text-xs sm:text-base'
+									className='bg-primary font-semibold w-fit capitalize hover:bg-primary transition-[.3] hover:scale-105 text-white py-3 px-5 sm:px-7 rounded-md text-xs sm:text-base'
 								>
 									See all products
 								</Link>

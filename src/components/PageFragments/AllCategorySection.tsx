@@ -119,7 +119,6 @@ const AllCategorySection = () => {
 
 	return (
 		<>
-			
 			<div className='sm:h-fit flex flex-col-reverse sm:flex-row gap-2 w-full bg-background/50 pb-2 sm:p-4 rounded-md sm:mt-28 md:mt-20 lg:mt-16'>
 				<div className='lg:w-[400px] grid place-items-center'>
 					<div className='flex flex-col items-center'>
@@ -133,7 +132,7 @@ const AllCategorySection = () => {
 
 						<Link
 							href='/category'
-							className='text-sm sm:text-lg md:text-xl bg-primary w-fit hover:bg-primaryColor-400 transition-[.3] hover:scale-105 text-white py-2 sm:py-3 px-4 sm:px-7 rounded-md font-semibold'
+							className='text-sm sm:text-lg md:text-xl bg-primary w-fit hover:bg-primary transition-[.3] hover:scale-105 text-white py-2 sm:py-3 px-4 sm:px-7 rounded-md font-semibold'
 						>
 							Shop Now
 						</Link>

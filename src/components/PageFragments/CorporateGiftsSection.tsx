@@ -44,7 +44,7 @@ const CorporateGiftsSection = () => {
 
 	return (
 		<section className='flex flex-col w-full bg-[#FDF7FD] mt-6'>
-			<div className={`bg-primaryColor-300 flex w-full justify-center py-3`}>
+			<div className={`bg-primary flex w-full justify-center py-3`}>
 				<span className='text-white'>Corporate Gifts</span>
 			</div>
 			<div className='flex overflow-hidden pt-6 pb-4 px-8 xs:px-0'>

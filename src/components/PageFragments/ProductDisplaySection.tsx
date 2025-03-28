@@ -185,8 +185,8 @@ const ProductDisplaySection = ({ FormatedId }: ProductDisplaySectionProps) => {
 												onClick={handleClick}
 												className={`${
 													cartItemCount === 0
-														? "bg-primaryColor-300/80 cursor-not-allowed"
-														: "bg-primaryColor-300 hover:bg-primary cursor-pointer"
+														? "bg-primary/80 cursor-not-allowed"
+														: "bg-primary hover:bg-primary cursor-pointer"
 												} px-4 slg:px-8 py-3 flex items-center justify-center gap-1 rounded-lg leading-[1.5] transition w-fit`}
 											>
 												<h4 className='text-white capitalize font-semibold text-sm slg:text-base'>
@@ -195,7 +195,7 @@ const ProductDisplaySection = ({ FormatedId }: ProductDisplaySectionProps) => {
 											</button>
 										)}
 										<div className='flex gap-2 flex-col sm:flex-row sm:items-center'>
-											<span className='font-outfit text-sm lg:text-base text-primary font-semibold text-primary-100'>
+											<span className='font-outfit text-sm lg:text-base text-primary font-semibold text-primary'>
 												Share:
 											</span>
 											<div className='flex flex-wrap items-center gap-3 w-full'>

@@ -131,7 +131,7 @@ const ChangePasswordForm = () => {
 											id='old_password'
 											name='old_password'
 											placeholder='Enter your password'
-											className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primaryColor-100 ${
+											className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primary ${
 												formik.touched.old_password &&
 												formik.errors.old_password
 													? "border-red-500"
@@ -170,7 +170,7 @@ const ChangePasswordForm = () => {
 											id='new_password'
 											name='new_password'
 											placeholder='Enter your password'
-											className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primaryColor-100 ${
+											className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primary ${
 												formik.touched.new_password &&
 												formik.errors.new_password
 													? "border-red-500"
@@ -201,7 +201,7 @@ const ChangePasswordForm = () => {
 					<div className='mt-5 text-right max-w-[400px]'>
 						<button
 							type='submit'
-							className={`md:text-sm leading-5 inline-flex items-center cursor-not-allowed transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none text-white py-2 md:py-3 lg:py-3 hover:text-white hover:bg-primaryColor-100 h-12 mt-1 text-sm lg:text-sm w-full sm:w-[10rem] ${
+							className={`md:text-sm leading-5 inline-flex items-center cursor-not-allowed transition ease-in-out duration-300 font-medium text-center justify-center border-0 border-transparent rounded-md placeholder-white focus-visible:outline-none focus:outline-none text-white py-2 md:py-3 lg:py-3 hover:text-white hover:bg-primary h-12 mt-1 text-sm lg:text-sm w-full sm:w-[10rem] ${
 								formik.isValid ? "bg-primary cursor-pointer" : "bg-primary/60"
 							}`}
 							disabled={!formik.isValid || formik.isSubmitting}

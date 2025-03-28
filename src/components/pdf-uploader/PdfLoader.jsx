@@ -72,7 +72,7 @@ const PdfLoader = ({ setPdfUrl, pdfUrl }) => {
 						<b>Uploaded PDF </b>
 						<Link
 							href={pdfUrl}
-							className='bg-primaryColor-300 text-white p-1 rounded-2xl line-clamp-1 w-[35rem]'
+							className='bg-primary text-white p-1 rounded-2xl line-clamp-1 w-[35rem]'
 							target='_blank'
 							rel='noopener noreferrer'
 						>

@@ -1,43 +1,45 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { CartIconSvg, FivelinxMartIconSvg, UserIconSvg } from "../SvgIcons";
+import { CartIconSvg, UserIconSvg } from "../SvgIcons";
 import { usePathname, useRouter } from "next/navigation";
-import HomePageBottomHeader from "./HomePageBottomHeader";
-import CategoryPageBottomHeader from "./CategoryPageBottomHeader";
-import ProductPageBottomHeader from "./ProductPageBottomHeader";
 import Link from "next/link";
+import Drawer from "react-modern-drawer";
 import { useCart } from "react-use-cart";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MobileNav from "./MobileNav";
 import useToken from "../hooks/useToken";
 import * as bi from "react-icons/bi";
-import { FaCartArrowDown, FaSearch } from "react-icons/fa";
-
-import {
-	useGetProductQuery,
-	useGetUserAccountQuery,
-} from "../config/features/api";
-import { useDispatch } from "react-redux";
-import { setSearchDataState } from "../config/features/searchDataState";
+import { FaCartArrowDown } from "react-icons/fa";
+import { useMutation } from "react-query";
 import { getFirstCharacter, signOut } from "@utils/lib";
+import {
+	Dropdown,
+	DropdownItem,
+	DropdownMenu,
+	DropdownTrigger,
+} from "@nextui-org/react";
 import { FormatMoney2 } from "../Reusables/FormatMoney";
-import { stringify } from "querystring";
 import { SlArrowDown } from "react-icons/sl";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
-import { BsTags } from "react-icons/bs";
-import { setUserDetails } from "../config/features/userDetails";
-import Picture from "../picture/Picture";
-import { useAppSelector } from "../hooks";
 import { Popover, Transition } from "@headlessui/react";
 import { useCategories, useCustomer } from "../lib/woocommerce";
-import { convertToSlug, filterCustomersByEmail } from "@constants";
+import {
+	convertToSlug,
+	currencyOptions,
+	filterCustomersByEmail,
+} from "@constants";
 import { ImSpinner2 } from "react-icons/im";
 import { LogoImage } from "@utils/function";
 import SearchInput from "../Reusables/SearchInput";
-import Drawer from "react-modern-drawer";
 import { GrClose } from "react-icons/gr";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { APICall } from "@utils";
+import { fetchExchangeRate } from "@utils/endpoints";
+import FormToast from "../Reusables/Toast/SigninToast";
+import { setBaseCurrency, setExchangeRate } from "../Redux/Currency";
+import Picture from "../picture/Picture";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 const Header = () => {
 	const pathname = usePathname();
@@ -50,6 +52,9 @@ const Header = () => {
 	const [isSearchLoading, setIsSearchLoading] = useState(false);
 	const { token, email } = useToken();
 	const [searchValue, setSearchValue] = useState("");
+	const { baseCurrency } = useAppSelector((state) => state.currency);
+	const dispatch = useAppDispatch();
+	const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency.code);
 	// const { token } = useAppSelector((ele) => ele?.auth);
 
 	const [drawerSize, setDrawerSize] = useState<number | string>(400); // Default size
@@ -83,9 +88,6 @@ const Header = () => {
 	} = useCategories("");
 
 	const Categories: CategoryType[] = categories;
-
-	const dispatch = useDispatch();
-
 	const [isOpen, setIsOpen] = useState(false);
 	const toggleDrawer = () => {
 		setIsOpen((prevState) => !prevState);
@@ -174,6 +176,60 @@ const Header = () => {
 			};
 		}
 	}, []);
+
+	const exchangeRATEMutation = useMutation(
+		async (value: string) => {
+			const response = await APICall(
+				fetchExchangeRate,
+				["NGN", value],
+				true,
+				true,
+			);
+			return response;
+		},
+		{
+			onSuccess: async (data) => {
+				FormToast({
+					message: "Exchange rate retrieved successfully.",
+					success: true,
+				});
+			},
+			onError: (error: any) => {
+				const errorMessage = "Failed to fetch exchange rate. Please try again.";
+
+				FormToast({
+					message: errorMessage,
+					success: false,
+				});
+			},
+		},
+	);
+
+	// Handle currency change
+	const handleCurrencyChange = async (keys: "all" | Set<React.Key>) => {
+		const selectedValue = Array.from(keys)[0] as string;
+
+		// Find the selected currency object
+		const selectedCurrencyObj = currencyOptions.find(
+			(c) => c.code === selectedValue,
+		);
+		if (!selectedCurrencyObj) return;
+
+		// Fetch exchange rate
+		try {
+			const data = await exchangeRATEMutation.mutateAsync(
+				selectedCurrencyObj.code,
+			);
+
+			if (data) {
+				dispatch(setExchangeRate(data));
+				dispatch(setBaseCurrency(selectedCurrencyObj));
+				setSelectedCurrency(selectedValue);
+			}
+		} catch (error) {
+			console.error("Error fetching exchange rate:", error);
+		}
+	};
 	return (
 		<>
 			<header
@@ -198,7 +254,7 @@ const Header = () => {
 					</div>
 					<div className='flex h-10 col-span-2'>
 						<SearchInput
-							className='flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.8rem] bg-gray-100/30 !rounded-full outline-none focus:border-primaryColor-100 focus:ring-1 transition'
+							className='flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.8rem] bg-gray-100/30 !rounded-full outline-none focus:border-primary focus:ring-1 transition'
 							placeholder='Search for products'
 							searchValue={searchValue}
 							setSearchQuery={setSearchValue}
@@ -223,10 +279,40 @@ const Header = () => {
 								className='truncate text-sm font-semibold w-16 overflow-hidden'
 								title={`₦${calculateSubtotal().toString()}`}
 							>
-								{FormatMoney2(calculateSubtotal())}
+								<FormatMoney2 value={calculateSubtotal()} />
 							</span>
 						</div>
 						<div className='flex gap-2 justify-center items-center'>
+							<Dropdown>
+								<DropdownTrigger className=''>
+									<button
+										type='button'
+										className='bg-white border border-primary hover:bg-black cursor-pointer transition-[.4] group text-primary text-2xl hover:text-white rounded-full p-0 size-10'
+									>
+										{baseCurrency?.symbol}
+									</button>
+								</DropdownTrigger>
+
+								<DropdownMenu
+									aria-label='Select Base Currency'
+									selectionMode='single'
+									selectedKeys={new Set([selectedCurrency])}
+									onSelectionChange={(keys) => {
+										handleCurrencyChange(keys);
+									}}
+									className='bg-white rounded-md pb-4 text-sm lg:text-base shadow'
+								>
+									{currencyOptions.map((currency) => (
+										<DropdownItem
+											key={currency.code}
+											value={currency.code}
+											className='w-fit'
+										>
+											{`${currency.country} | ${currency.code} (${currency.symbol})`}
+										</DropdownItem>
+									))}
+								</DropdownMenu>
+							</Dropdown>
 							{wc_customer_info?.shipping?.address_2 ? (
 								<Picture
 									src={wc_customer_info?.shipping?.address_2}
@@ -293,13 +379,13 @@ const Header = () => {
 								) : (
 									<div className='flex flex-col'>
 										<span
-											className='cursor-pointer hover:text-primaryColor-200 transition'
+											className='cursor-pointer hover:text-primary transition'
 											onClick={() => router.push("/user/login")}
 										>
 											Log In
 										</span>
 										{/* <span
-										className='cursor-pointer hover:text-primaryColor-200 transition'
+										className='cursor-pointer hover:text-primary transition'
 										onClick={() => router.push("/user/register")}
 									>
 										Register
@@ -325,6 +411,39 @@ const Header = () => {
 						</div>
 
 						<div className='flex gap-4 justify-center items-center cursor-pointer'>
+							<Dropdown>
+								<DropdownTrigger className=''>
+									<button
+										type='button'
+										className='bg-white border border-primary hover:bg-black cursor-pointer transition-[.4] group text-primary text-xl group-hover:text-white rounded-full p-0 size-8'
+									>
+										{baseCurrency?.symbol}
+									</button>
+								</DropdownTrigger>
+
+								<DropdownMenu
+									aria-label='Select Base Currency'
+									selectionMode='single'
+									selectedKeys={new Set([selectedCurrency])}
+									onSelectionChange={(keys) => {
+										handleCurrencyChange(keys);
+									}}
+									className='bg-white rounded-md pb-4 text-sm lg:text-base'
+								>
+									{currencyOptions.map((currency) => {
+										const isSelected = selectedCurrency === currency.code;
+										return (
+											<DropdownItem
+												key={currency.code}
+												value={currency.code}
+												className={`w-fit ${isSelected ? "text-primary" : ""}`}
+											>
+												{`${currency.country} | ${currency.code} (${currency.symbol})`}
+											</DropdownItem>
+										);
+									})}
+								</DropdownMenu>
+							</Dropdown>
 							{firstName ? (
 								<div
 									className='flex gap-1.5 items-center h-full cursor-pointer group relative'
@@ -400,17 +519,19 @@ const Header = () => {
 									</div>
 								)}
 								<span
-									className='truncate text-sm font-semibold w-16 overflow-hidden'
+									className={`truncate ${
+										calculateSubtotal() > 0 ? "w-16" : ""
+									} text-sm font-semibold overflow-hidden`}
 									title={`₦${calculateSubtotal().toString()}`}
 								>
-									{FormatMoney2(calculateSubtotal())}
+									<FormatMoney2 value={calculateSubtotal()} />
 								</span>
 							</div>
 						</div>
 					</div>
 					<div className='flex w-full h-10 mt-2 px-1'>
 						<SearchInput
-							className='flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.8rem] bg-gray-100/30 !rounded-full outline-none focus:border-primaryColor-100 focus:ring-1 transition'
+							className='flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.8rem] bg-gray-100/30 !rounded-full outline-none focus:border-primary focus:ring-1 transition'
 							placeholder='Search for products'
 							searchValue={searchValue}
 							setSearchQuery={setSearchValue}
@@ -480,14 +601,14 @@ const Header = () => {
 
 									{open ? (
 										<IoIosArrowUp
-											className={`text-lg group-hover:text-primary-100 ${
-												open ? "text-primary-100" : "text-black-600"
+											className={`text-lg group-hover:text-primary ${
+												open ? "text-primary" : "text-black-600"
 											}`}
 										/>
 									) : (
 										<IoIosArrowDown
-											className={`text-lg group-hover:text-primary-100 ${
-												open ? "text-primary-100" : "text-black-600"
+											className={`text-lg group-hover:text-primary ${
+												open ? "text-primary" : "text-black-600"
 											}`}
 										/>
 									)}
@@ -506,12 +627,12 @@ const Header = () => {
 											href='/category'
 											className={`flex items-center gap-2 group cursor-pointer text-sm xl:text-base ${
 												pathname === `/category`
-													? "text-primary-100"
+													? "text-primary"
 													: "text-black-600"
-											} hover:text-primaryColor-400 transition`}
+											} hover:text-primary transition`}
 										>
 											<h4
-												className={`cursor-pointer group-hover:text-primary-100 font-medium transition`}
+												className={`cursor-pointer group-hover:text-primary font-medium transition`}
 												dangerouslySetInnerHTML={{ __html: "All" }}
 											/>
 										</Link>
@@ -536,12 +657,12 @@ const Header = () => {
 																"-" +
 																item?.id
 															}`
-																? "text-primary-100"
+																? "text-primary"
 																: "text-black-600"
-														} hover:text-primaryColor-400 transition`}
+														} hover:text-primary transition`}
 													>
 														<h4
-															className={`cursor-pointer group-hover:text-primary-100 font-medium transition`}
+															className={`cursor-pointer group-hover:text-primary font-medium transition`}
 															dangerouslySetInnerHTML={{ __html: item?.name }}
 														/>
 													</Link>

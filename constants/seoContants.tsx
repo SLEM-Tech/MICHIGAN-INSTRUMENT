@@ -1,7 +1,7 @@
 const websiteUrl = "https://nest-wheel-auto.com";
-const websiteName = "Nest Wheel Auto";
+export const websiteName = "Nest Wheel Auto";
 export const SEODATA = {
-	defaultOGImage: `/images/trendhive-mini-logo.png`,
+	defaultOGImage: ``,
 	default: {
 		title: websiteName,
 		description: `This is ${websiteName}`,

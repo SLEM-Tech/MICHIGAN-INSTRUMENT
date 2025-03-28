@@ -14,7 +14,7 @@ import superProductImage from "./super-product-img.png";
 import computerOfficeImg from "./computer-office-img.png";
 import computerOfficeResponsive2 from "./computer-office-responsive-image.png";
 import officeImg1 from "./office-img.png";
-import logoImage from "./logo-image.png";
+import logoImage from "./nestandwheel.jpg";
 import confetti from "./confetti.png";
 import banner from "./banner.png";
 

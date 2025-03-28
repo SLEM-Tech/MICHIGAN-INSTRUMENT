@@ -176,7 +176,7 @@ const ContactForm = () => {
 						/>
 					</div>
 
-					<button className='w-fit min-w-[10rem] px-5 py-3 bg-primary hover:bg-primaryColor-100 transition text-white rounded-md mb-2 mt-5'>
+					<button className='w-fit min-w-[10rem] px-5 py-3 bg-primary hover:bg-primary transition text-white rounded-md mb-2 mt-5'>
 						{isLoading ? (
 							<ClipLoader color='#d4d3d3' size={20} />
 						) : (

@@ -1,34 +1,13 @@
 "use client";
-import {
-	UserInfo,
-	deliveryPaymentResponse,
-	filterCustomersByEmail,
-	generateUniqueReference,
-	initializeOrderPaymentPayLoad,
-	initializeOrderPaymentResponse,
-	isValidEmail,
-} from "@constants";
-import {
-	maestroImageNameImg1,
-	mastercardImageNameImg1,
-	visaImg1,
-} from "@public/images";
-import {
-	FormatMoney,
-	FormatMoney2,
-} from "@src/components/Reusables/FormatMoney";
+import { filterCustomersByEmail, generateUniqueReference } from "@constants";
+import { FormatMoney2 } from "@src/components/Reusables/FormatMoney";
+import { RadioGroup } from "@headlessui/react";
 import FormToast from "@src/components/Reusables/Toast/SigninToast";
-import { PaymentOptButton } from "@src/components/buttons";
-import {
-	useGetUserAccountQuery,
-	useInitializeOrderPaymentMutation,
-	useOnDeliveryPaymentMutation,
-} from "@src/components/config/features/api";
 import {
 	cardPaymentFormModel,
 	checkoutFormModel,
 } from "@src/components/config/models";
-import { RootState } from "@src/components/config/store";
+import Select from "react-select";
 import useToken from "@src/components/hooks/useToken";
 import { useCreateOrder, useCustomer } from "@src/components/lib/woocommerce";
 import AuthModal from "@src/components/modal/AuthModal";
@@ -46,11 +25,16 @@ import { ErrorMessage, Field, Form, FormikProvider, useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
-import { SlArrowDown } from "react-icons/sl";
 import { useMutation } from "react-query";
-import { useSelector } from "react-redux";
 import { ClipLoader } from "react-spinners";
 import { useCart } from "react-use-cart";
+import { useAppSelector } from "@src/components/hooks";
+import PaystackPaymentButton from "@src/components/Payment/PaystackPaymentButton";
+
+interface SelectOption {
+	label: string;
+	value: string;
+}
 
 interface PaymentFormValues {
 	cardNumber: string; // The card number as a string
@@ -59,7 +43,7 @@ interface PaymentFormValues {
 	cvv: string; // The CVV as a string
 }
 
-interface FormValues {
+export interface FormValues {
 	firstName: string;
 	lastName: string;
 	email?: string;
@@ -73,15 +57,27 @@ interface FormValues {
 const CheckoutInfoForm = () => {
 	const { token, email } = useToken();
 	const router = useRouter();
-	const [citiesForSelectedCountry, setCitiesForSelectedCountry] = useState<
-		ICity[]
+	const [paystackLoading, setPaystackLoading] = useState(false);
+	const states: SelectOption[] = State.getStatesOfCountry("NG").map(
+		(state) => ({
+			label: state.name,
+			value: state.isoCode,
+		}),
+	);
+	const [selectedPaymentChannel, setSelectedPaymentChannel] =
+		useState("alliance_pay");
+	const [citiesForSelectedState, setCitiesForSelectedState] = useState<
+		SelectOption[]
 	>([]);
 	const [state, setState] = useState("");
 	const [iframeUrl, setIframeUrl] = useState(null);
-	const states = State.getStatesOfCountry("NG");
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [paymentRef, setPaymentRef] = useState("");
 	const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+	const { baseCurrency, exchangeRate } = useAppSelector(
+		(state) => state.currency,
+	);
 
 	const {
 		mutate: createOrder,
@@ -106,19 +102,33 @@ const CheckoutInfoForm = () => {
 		router.push("/user/login");
 	};
 
-	const handleStateChange = (stateCode: string) => {
-		const cities = City.getCitiesOfState("NG", stateCode);
-		setCitiesForSelectedCountry(cities);
+	const handleStateChange = (selectedOption: SelectOption | null) => {
+		if (selectedOption) {
+			const stateCode = selectedOption.value;
+			const cities: ICity[] = City.getCitiesOfState("NG", stateCode);
+
+			setCitiesForSelectedState(
+				cities.map((city) => ({
+					label: city.name,
+					value: city.name,
+				})),
+			);
+
+			formik.setFieldValue("state", selectedOption.label);
+			formik.setFieldValue("city", ""); // Reset city when state changes
+		}
 	};
 	const { items, emptyCart } = useCart();
+
 	const calculateSubtotal = () => {
 		return items.reduce(
 			(total, item: any) => total + item?.price * item?.quantity,
 			0,
 		);
 	};
+	const convertedValue = calculateSubtotal() * exchangeRate;
 	const calculateTotal = () => {
-		return calculateSubtotal();
+		return convertedValue;
 		// You can add any additional charges or discounts here if needed.
 	};
 
@@ -140,7 +150,7 @@ const CheckoutInfoForm = () => {
 		customer_id: wc_customer_info?.id,
 		payment_method: "alliance-payment-card",
 		payment_method_title: "alliance-payment",
-		set_paid: false,
+		set_paid: true,
 		billing: {
 			first_name: wc_customer_info?.first_name,
 			last_name: wc_customer_info?.last_name,
@@ -294,20 +304,16 @@ const CheckoutInfoForm = () => {
 				first_name: value?.firstName,
 				last_name: value?.lastName,
 				mobile: value?.phone?.toString(),
-				country: "NG",
+				country: baseCurrency.countryCode,
 				email: value?.email,
 			},
 			Order: {
-				amount: calculateSubtotal(),
+				amount: convertedValue,
 				reference: generateUniqueReference(),
 				description: value?.orderNotes,
-				currency: "NGN",
+				currency: baseCurrency.code,
 			},
 		};
-
-		// Create a FormData object and wrap the data inside a `data` field
-		// const formData = new FormData();
-		// formData.append("data", JSON.stringify(dataPayload));
 
 		if (token) {
 			await encryptedMutation.mutateAsync(dataPayload);
@@ -323,7 +329,7 @@ const CheckoutInfoForm = () => {
 		const orderPaymentData = {
 			reference: paymentRef,
 			payment_option: "C",
-			country: "NG",
+			country: baseCurrency.countryCode,
 			card: {
 				cvv: value.cvv,
 				card_number: value.cardNumber,
@@ -345,13 +351,17 @@ const CheckoutInfoForm = () => {
 		state: state || "",
 	};
 
-	// console.log("initialValues", initialValues);
 	const formik = useFormik({
 		initialValues: initialValues,
 		validationSchema: checkoutFormModel,
 		enableReinitialize: true,
-		onSubmit: (values, { setSubmitting }) => {
-			handleFormSubmit(values, setSubmitting);
+		onSubmit: async (values, { setSubmitting }) => {
+			if (selectedPaymentChannel === "alliance_pay") {
+				setSubmitting(true);
+				await handleFormSubmit(values, setSubmitting);
+			}
+
+			setSubmitting(false);
 		},
 	});
 
@@ -376,98 +386,87 @@ const CheckoutInfoForm = () => {
 		<>
 			<FormikProvider value={formik}>
 				<Form className='flex flex-col xl:flex-row w-full gap-4 mt-3 max-w-[1440px] mx-auto mb-16 slg:mb-64'>
-					<div className='mt-2 bg-white px-2 py-4 slg:p-8 flex-1 flex flex-col gap-4 rounded-xl'>
-						<h3 className='text-base sm:text-2xl font-[500] text-secondary-400 mb-5'>
+					<div className='mt-2 px-2 py-4 flex-1 flex flex-col gap-4 rounded-xl'>
+						<h3 className='text-base sm:text-2xl font-medium text-black mb-5'>
 							Delivery Information
 						</h3>
-						<div className='grid md:grid-cols-2 gap-3 sm:gap-8'>
-							<div>
-								<label
-									htmlFor='firstName'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
-								>
-									First Name <span className='text-red-500'>*</span>
-								</label>
 
-								<Field
-									type='text'
-									id='firstName'
-									name='firstName'
-									placeholder='Enter first name'
-									required
-									className={`w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in`}
-								/>
+						<div className='grid gap-4'>
+							<div className='grid md:grid-cols-2 gap-3 sm:gap-8'>
+								<div>
+									<label
+										htmlFor='firstName'
+										className='block font-medium text-xs sm:text-base text-black mb-2'
+									>
+										First Name <span className='text-red-500'>*</span>
+									</label>
 
-								<ErrorMessage
-									name={"firstName"}
-									component={"div"}
-									className='text-red-600 text-xs text-left'
-								/>
+									<Field
+										type='text'
+										id='firstName'
+										name='firstName'
+										placeholder='Enter first name'
+										required
+										className={`w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in`}
+									/>
+
+									<ErrorMessage
+										name={"firstName"}
+										component={"div"}
+										className='text-red-600 text-xs text-left'
+									/>
+								</div>
+								<div>
+									<label
+										htmlFor='lastName'
+										className='block font-medium text-xs sm:text-base text-black mb-2'
+									>
+										Last Name <span className='text-red-500'>*</span>
+									</label>
+
+									<Field
+										type='text'
+										id='lastName'
+										placeholder='Enter last name'
+										name='lastName'
+										required
+										className={`w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in`}
+									/>
+
+									<ErrorMessage
+										name={"lastName"}
+										component={"div"}
+										className='text-red-600 text-xs text-left'
+									/>
+								</div>
 							</div>
-							<div>
-								<label
-									htmlFor='lastName'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
-								>
-									Last Name <span className='text-red-500'>*</span>
-								</label>
-
-								<Field
-									type='text'
-									id='lastName'
-									placeholder='Enter last name'
-									name='lastName'
-									required
-									className={`w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in`}
-								/>
-
-								<ErrorMessage
-									name={"lastName"}
-									component={"div"}
-									className='text-red-600 text-xs text-left'
-								/>
-							</div>
-						</div>
-
-						<div className='grid mt-4 gap-4'>
 							<div>
 								<label
 									htmlFor='state'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
-									State
+									State <span className='text-red-500'>*</span>
 								</label>
 
-								<div className='relative'>
-									<Field
-										as='select'
-										name='state'
-										className='w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in appearance-none cursor-pointer'
-										onChange={(event: any) => {
-											const selectedValue = event.target.value;
-											setState(selectedValue);
-											handleStateChange(
-												event.target.selectedOptions[0].dataset.isocode,
-											);
-										}}
-									>
-										<option value='' data-isocode=''>
-											Select State
-										</option>
-										{states.map((stateName: any, index: number) => (
-											<option
-												key={index}
-												value={stateName.name}
-												data-isocode={stateName.isoCode}
-											>
-												{stateName.name}
-											</option>
-										))}
-									</Field>
-									<span className='absolute inset-y-0 right-2 flex items-center pr-2 pointer-events-none'>
-										<SlArrowDown className='cursor-pointer z-4' />
-									</span>
-								</div>
+								<Select
+									name='state'
+									options={states}
+									value={
+										states.find(
+											(option) => option.label === formik.values.state,
+										) || null
+									}
+									onChange={handleStateChange}
+									className='w-full'
+									isSearchable
+									styles={{
+										valueContainer: (base) => ({
+											...base,
+											minHeight: "50px",
+											// padding: "10px",
+										}),
+									}}
+								/>
 								<ErrorMessage
 									name={"state"}
 									component={"div"}
@@ -477,28 +476,34 @@ const CheckoutInfoForm = () => {
 							<div>
 								<label
 									htmlFor='city'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
-									Select City
+									Select City <span className='text-red-500'>*</span>
 								</label>
-								<div className='relative'>
-									<Field
-										as='select'
-										name='city'
-										className='w-full p-2 sm:py-3 font-[400] text-xs sm:text-base rounded-md border border-secondary-800 outline-none focus:border-secondary-800 transition-[.5] ease-in appearance-none cursor-pointer'
-									>
-										<option value=''>Select your city</option>
-										{citiesForSelectedCountry.map((cityName, index) => (
-											<option key={index} value={cityName.name}>
-												{cityName.name}
-											</option>
-										))}
-									</Field>
 
-									<span className='absolute inset-y-0 right-2 flex items-center pr-2 pointer-events-none'>
-										<SlArrowDown className='cursor-pointer z-4' />
-									</span>
-								</div>
+								<Select
+									name='city'
+									options={citiesForSelectedState}
+									value={
+										citiesForSelectedState.find(
+											(option) => option.label === formik.values.city,
+										) || null
+									}
+									onChange={(selectedOption) =>
+										formik.setFieldValue("city", selectedOption?.label)
+									}
+									className='w-full mt-4'
+									isSearchable
+									isDisabled={citiesForSelectedState.length === 0}
+									styles={{
+										valueContainer: (base) => ({
+											...base,
+											minHeight: "50px",
+											// padding: "10px",
+										}),
+									}}
+								/>
+
 								<ErrorMessage
 									name={"city"}
 									component={"div"}
@@ -508,7 +513,7 @@ const CheckoutInfoForm = () => {
 							<div>
 								<label
 									htmlFor='email'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
 									Email Address <span className='text-red-500'>*</span>
 								</label>
@@ -530,7 +535,7 @@ const CheckoutInfoForm = () => {
 							<div>
 								<label
 									htmlFor='houseAddress'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
 									House Address <span className='text-red-500'>*</span>
 								</label>
@@ -550,7 +555,7 @@ const CheckoutInfoForm = () => {
 							<div>
 								<label
 									htmlFor='phone'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
 									Phone <span className='text-red-500'>*</span>
 								</label>
@@ -571,7 +576,7 @@ const CheckoutInfoForm = () => {
 							<div>
 								<label
 									htmlFor='orderNotes'
-									className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+									className='block font-medium text-xs sm:text-base text-black mb-2'
 								>
 									Order notes <span className='text-red-500'>*</span>
 								</label>
@@ -593,46 +598,90 @@ const CheckoutInfoForm = () => {
 						</div>
 					</div>
 
-					<div className='flex-[.4] flex flex-col'>
-						<div className='mt-2 bg-white px-3 sm:px-8 py-5 rounded-xl'>
-							<h4 className='font-semibold text-base sm:text-lg text-secondary-400'>
-								Payment Method -{" "}
-								<span className='text-primary'>Alliancepay</span>
-							</h4>
+					<div className='flex-[.4] space-y-6 bg-white rounded-xl px-4 h-fit py-3'>
+						<div className=''>
+							<h5 className='text-sm sm:text-base font-semibold mb-3 sm:mb-6 text-primary'>
+								Select Payment Option
+							</h5>
+							<RadioGroup
+								value={selectedPaymentChannel}
+								onChange={setSelectedPaymentChannel}
+								className='font-semibold'
+							>
+								<div className='flex space-x-4'>
+									{[
+										{ id: "alliance_pay", label: "Alliancepay" },
+										{ id: "paystack", label: "Paystack" },
+									].map((option) => (
+										<RadioGroup.Option
+											key={option.id}
+											value={option.id}
+											className='flex items-center space-x-2 cursor-pointer'
+										>
+											{({ checked }) => (
+												<>
+													<input
+														type='radio'
+														checked={checked}
+														className='h-4 w-4 text-primary border-gray-300 focus:ring-primary cursor-pointer'
+														readOnly
+													/>
+													<span
+														className={
+															checked
+																? "text-primary font-bold"
+																: "text-gray-800"
+														}
+													>
+														{option.label}
+													</span>
+												</>
+											)}
+										</RadioGroup.Option>
+									))}
+								</div>
+							</RadioGroup>
 						</div>
-						<div className='mt-2 bg-white px-4 py-6 sm:py-12 rounded-xl'>
+						<div className=''>
 							<h5 className='text-base sm:text-2xl font-semibold mb-3 sm:mb-6'>
 								Your Order
 							</h5>
-							<div className='flex justify-between items-center text-sm sm:text-base font-[400] pb-4'>
+							<div className='flex justify-between items-center text-sm sm:text-base pb-4'>
 								<h4>Subtotal</h4>
-								<h4>{FormatMoney2(calculateSubtotal())}</h4>
+								<h4>
+									<FormatMoney2 value={calculateSubtotal()} />
+								</h4>
 							</div>
 
 							<div className='flex justify-between items-center mt-3 pb-4'>
-								<h4 className='text-sm sm:text-base font-bold text-secondary-400'>
+								<h4 className='text-sm sm:text-base font-bold text-black'>
 									Total
 								</h4>
-								<h4 className='text-base sm:text-xl font-bold text-secondary-400'>
-									{FormatMoney(calculateTotal())}
+								<h4 className='text-base sm:text-xl font-bold text-black'>
+									<FormatMoney2 value={calculateSubtotal()} />
 								</h4>
 							</div>
-							<button
-								type='submit'
-								className={`flex w-full justify-center items-center py-2 sm:py-3 px-14 mt-2 sm:mt-4 rounded-md text-white transition font-bold text-base ${
-									formik.isValid
-										? "bg-primaryColor-100 cursor-pointer"
-										: "cursor-not-allowed bg-primary/60"
-								}`}
-								disabled={encryptedMutation?.isLoading || !formik.isValid}
-								// onClick={handleFormSubmit}
-							>
-								{encryptedMutation?.isLoading ? (
-									<ClipLoader color='#d4d3d3' size={20} />
-								) : (
-									"Place Order"
-								)}
-							</button>
+							{selectedPaymentChannel === "alliance_pay" ? (
+								<button
+									type='button'
+									onClick={() => formik.handleSubmit()}
+									className={`flex w-full justify-center items-center py-2 sm:py-3 px-14 mt-2 sm:mt-4 rounded-md text-white transition font-bold text-base ${
+										formik.isValid
+											? "bg-primary cursor-pointer"
+											: "cursor-not-allowed bg-red-500/60"
+									}`}
+									disabled={encryptedMutation?.isLoading || !formik.isValid}
+									// onClick={handleFormSubmit}
+								>
+									{encryptedMutation?.isLoading ? (
+										<ClipLoader color='#d4d3d3' size={20} />
+									) : (
+										"Pay Now"
+									)}
+								</button>
+							) : (
+								<PaystackPaymentButton formik={formik} />
+							)}
 						</div>
 					</div>
 				</Form>
@@ -661,7 +710,7 @@ const CheckoutInfoForm = () => {
 									<div>
 										<label
 											htmlFor='cardNumber'
-											className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+											className='block font-medium text-xs sm:text-base text-black mb-2'
 										>
 											Card Number <span className='text-red-500'>*</span>
 										</label>
@@ -685,7 +734,7 @@ const CheckoutInfoForm = () => {
 									<div>
 										<label
 											htmlFor='expiryMonth'
-											className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+											className='block font-medium text-xs sm:text-base text-black mb-2'
 										>
 											Expiry Month <span className='text-red-500'>*</span>
 										</label>
@@ -709,7 +758,7 @@ const CheckoutInfoForm = () => {
 									<div>
 										<label
 											htmlFor='expiryYear'
-											className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+											className='block font-medium text-xs sm:text-base text-black mb-2'
 										>
 											Expiry Year <span className='text-red-500'>*</span>
 										</label>
@@ -733,7 +782,7 @@ const CheckoutInfoForm = () => {
 									<div>
 										<label
 											htmlFor='cvv'
-											className='block font-[500] text-xs sm:text-base text-secondary-400 mb-2'
+											className='block font-medium text-xs sm:text-base text-black mb-2'
 										>
 											CVV <span className='text-red-500'>*</span>
 										</label>
@@ -756,7 +805,7 @@ const CheckoutInfoForm = () => {
 
 								<button
 									type='submit'
-									className={`bg-primary px-8 mt-4 md:px-0 md:w-4/5 max-w-[11rem] py-2 mx-auto text-white rounded-md hover:bg-primaryColor-100 text-xs md:text-base`}
+									className={`bg-primary px-8 mt-4 md:px-0 md:w-4/5 max-w-[11rem] py-2 mx-auto text-black rounded-md hover:bg-primary text-xs md:text-base`}
 								>
 									{payOrderMutation.isLoading ? (
 										<ImSpinner2 className='text-xl animate-spin mx-auto' />
@@ -787,7 +836,7 @@ const CheckoutInfoForm = () => {
 								setIframeUrl(null);
 								setIsPaymentModalOpen(false);
 							}}
-							className='mt-4 bg-red-500 text-white py-1 px-4 rounded'
+							className='mt-4 bg-red-500 text-black py-1 px-4 rounded'
 						>
 							Close
 						</button>

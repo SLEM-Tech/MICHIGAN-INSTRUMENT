@@ -1,7 +1,7 @@
 import { AUTH_EMAIL } from "@constants";
 import Cookies from "js-cookie";
 
-export const AUTH_TOKEN_KEY = "LOGIN_ACCESS";
+export const AUTH_TOKEN_KEY = "NEST_WHEEL_AUTO_LOGIN_ACCESS";
 export const signOut = () => {
 	Cookies.remove(AUTH_TOKEN_KEY);
 	Cookies.remove(AUTH_EMAIL);
@@ -22,3 +22,7 @@ export const WC_URL = process.env.NEXT_PUBLIC_WC_API_URL || "";
 export const WC_ConsumerKey = process.env.NEXT_PUBLIC_WC_CONSUMER_KEY || "";
 export const WC_consumerSecret =
 	process.env.NEXT_PUBLIC_WC_CONSUMER_SECRET || "";
+export const PAYSTACK_PUBLIC_KEY =
+	process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || "";
+export const PAYSTACK_SECRET_KEY =
+	process.env.NEXT_PUBLIC_PAYSTACK_SECRET_KEY || "";

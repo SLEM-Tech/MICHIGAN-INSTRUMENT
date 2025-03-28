@@ -115,7 +115,7 @@ const LoginForm = () => {
 							id='email'
 							name='email'
 							placeholder='Enter your email address'
-							className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none transition-[.5] ease-in focus:border-transparent focus:ring-1 focus:ring-primaryColor-100 ${
+							className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none transition-[.5] ease-in focus:border-transparent focus:ring-1 focus:ring-primary ${
 								formik.touched.email && formik.errors.email
 									? "border-red-500"
 									: "border-gray-300"
@@ -142,7 +142,7 @@ const LoginForm = () => {
 								id='password'
 								name='password'
 								placeholder='Enter your password'
-								className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primaryColor-100 ${
+								className={`w-full px-2 py-2 md:py-3 font-[400] text-xs md:text-sm rounded-md border border-secondary-800 outline-none focus:border-transparent transition-[.5] ease-in focus:ring-1 focus:ring-primary ${
 									formik.touched.password && formik.errors.password
 										? "border-red-500"
 										: "border-gray-300"
@@ -177,7 +177,7 @@ const LoginForm = () => {
 
 					<button
 						type='submit'
-						className={`flex items-center justify-center border relative bg-black2-100 text-white border-transparent hover:border-primary-100 hover:bg-primary-100 hover:text-white hover:border-transparent text-xs sm:text-sm leading-[1.4] font-semibold py-2.5 sm:py-3 w-full rounded-md gap-1.5 transition ${
+						className={`flex items-center justify-center border relative bg-black2-100 text-white border-transparent hover:border-primary hover:bg-primary hover:text-white hover:border-transparent text-xs sm:text-sm leading-[1.4] font-semibold py-2.5 sm:py-3 w-full rounded-md gap-1.5 transition ${
 							formik.isValid
 								? "bg-primary cursor-pointer"
 								: "bg-primary/60 cursor-not-allowed"

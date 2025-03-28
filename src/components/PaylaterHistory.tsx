@@ -228,7 +228,7 @@ const PaylaterHistory = ({ itemData }: PaylaterHistoryProps) => {
 				</span>
 				<button
 					onClick={handleCloseModal}
-					className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primaryColor-100'
+					className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primary'
 				>
 					Pay Now
 				</button>
@@ -290,7 +290,7 @@ const PaylaterHistory = ({ itemData }: PaylaterHistoryProps) => {
 					</div>
 					<button
 						onClick={handlePaymentCloseModal}
-						className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primaryColor-100'
+						className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primary'
 					>
 						{isLoading ? (
 							<ClipLoader color='#d4d3d3' size={20} />
@@ -364,7 +364,7 @@ const PaylaterHistory = ({ itemData }: PaylaterHistoryProps) => {
 
 					<button
 						onClick={handlePaymentClose2Modal}
-						className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primaryColor-100'
+						className='w-full font-semibold py-3 text-white mb-6 rounded-md cursor-pointer bg-primary hover:bg-primary'
 					>
 						Payment Completed
 					</button>

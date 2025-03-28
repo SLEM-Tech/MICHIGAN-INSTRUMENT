@@ -1,15 +1,16 @@
 "use client";
 import { Provider } from "react-redux";
 import React, { ReactNode } from "react";
-import { store } from "./store";
 import { CartProvider } from "react-use-cart";
+import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import LoadingBar, { LoadingBarRef } from "react-top-loading-bar";
 import { ToastContainer } from "react-toastify";
 import * as _redux from "../../components/set-up";
 import axios from "axios";
+import newStore from "../set-up/redux/store";
 
-_redux.setupAxios(axios, store);
+_redux.setupAxios(axios, newStore);
 export const loadingBarRef = React.createRef<LoadingBarRef | null>();
 
 const queryClient = new QueryClient();
@@ -23,13 +24,15 @@ const AppProvider = ({ children }: AppProviderProps) => {
 		<>
 			<QueryClientProvider client={queryClient}>
 				<LoadingBar
-					color='#005B96'
+					color='#F4A100'
 					ref={loadingBarRef as React.RefObject<LoadingBarRef>}
 					height={5}
 				/>
 				<ToastContainer />
 				<CartProvider>
-					<Provider store={store}>{children}</Provider>
+					<NextUIProvider>
+						<Provider store={newStore}>{children}</Provider>
+					</NextUIProvider>
 				</CartProvider>
 			</QueryClientProvider>
 		</>
