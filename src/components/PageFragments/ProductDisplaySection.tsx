@@ -150,11 +150,15 @@ const ProductDisplaySection = ({ FormatedId }: ProductDisplaySectionProps) => {
 								<div className={`flex flex-col sm:mt-3`}>
 									<div className='flex gap-4 sm:gap-6 justify-start items-center py-5 slg:py-3'>
 										<h3 className='text-2xl slg:text-3xl font-semibold leading-[.95] text-primary'>
-											{FormatMoney2(Price)}
+											{Price ? <FormatMoney2 value={Price} /> : "Out of Stock"}
 										</h3>
 
 										<h4 className='text-sm text-[#00000071] font-[400] line-through leading-[1.8]'>
-											{FormatMoney2(parseInt(Product?.regular_price))}
+											{Product?.regular_price ? (
+												<FormatMoney2 value={Product?.regular_price} />
+											) : (
+												"Out of Stock"
+											)}
 										</h4>
 									</div>
 
