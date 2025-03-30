@@ -26,7 +26,7 @@ export const theme = {
 		},
 		colors: {
 			light: "#E8F0F9", // Cool light blue
-			background: "#E3ECF8", // Slightly darker background with a bluish tone
+			background: "#E3ECF8", // Slightly darker background with a bluish tones
 			gray: {
 				100: "#E4E2DA", // Very light gray with warmth
 				200: "#B0AC9F", // Muted medium gray
