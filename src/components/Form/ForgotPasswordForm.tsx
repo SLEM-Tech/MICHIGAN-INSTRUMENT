@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 import { useForgotPasswordMutation } from "../config/features/api";
 import { ForgotPasswordPayLoad, ForgotPasswordResponse } from "@constants";
-import FormToast from "../Reusables/Toast/SigninToast";
+import { showToast } from "../Reusables/Toast/SigninToast";
 import { ForgetPasswordFormModel } from "../config/models";
 import AuthModal from "../modal/AuthModal";
 import { forgotPassword } from "@utils/endpoints";
@@ -42,6 +42,7 @@ const ForgotPasswordForm = () => {
 		},
 		{
 			onSuccess: async (data, variable: FormValues) => {
+				showToast("Password reset email sent successfully!", true);
 				handleOpenModal();
 				formik.resetForm();
 			},
