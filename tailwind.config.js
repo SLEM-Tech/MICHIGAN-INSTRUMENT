@@ -70,7 +70,7 @@ export const theme = {
 		},
 		screens: {
 			xs: "400px",
-			slg: "999px", // @media (min-width: 999px)
+			slg: "999px", // @media (min-width: 999px)s
 			xmd: "800px", // @media (min-width: 800px)
 			...require("tailwindcss/defaultTheme").screens,
 		},
