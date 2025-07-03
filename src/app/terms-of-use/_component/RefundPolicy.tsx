@@ -69,8 +69,8 @@ const RefundPolicy = () => {
           <p className="font-bold">Eligibility Requirements:</p>
           <ul className="list-disc pl-5 mt-1 space-y-1">
             <li>
-              Return request must be made within<strong>5 – 7 days</strong>{" "}
-              after delivery.
+              Return request must be made within
+              <strong>5 &ndash; 7 days</strong> after delivery.
             </li>
             <li>
               Item must be <strong>unused, uninstalled,</strong> and in original
@@ -122,12 +122,13 @@ const RefundPolicy = () => {
           <ul className="list-disc pl-5 mt-1 space-y-1">
             <li>
               Refundable <strong>only if the sale is not finalized</strong> due
-              to reasons outside the buyer’s control (e.g., financing denial,
-              seller withdrawal)
+              to reasons outside the buyer&apos;s control (e.g., financing
+              denial, seller withdrawal)
             </li>
             <li>
               Cancellations initiated by the buyer may incur a{" "}
-              <strong>non-refundable fee</strong> ([e.g., 5–10%] of the deposit)
+              <strong>non-refundable fee</strong> ([e.g., 5&ndash;10%] of the
+              deposit)
             </li>
           </ul>
         </li>
@@ -155,7 +156,7 @@ const RefundPolicy = () => {
           <p className="mt-1">
             <p className="mt-1">
               We will review your request and respond within{" "}
-              <strong> 3–5 business days.</strong>
+              <strong> 3&ndash;5 business days.</strong>
             </p>
           </p>
         </li>
@@ -179,8 +180,8 @@ const RefundPolicy = () => {
           <span className="font-bold">7. Refund Method & Timeline</span>
           <p className="mt-1">
             Approved refunds will be processed via our payment facilitator to
-            the original payment method within 7–14 business days, depending on
-            your bank/card provider.
+            the original payment method within 7&ndash;14 business days,
+            depending on your bank/card provider.
           </p>
         </li>
 
@@ -209,7 +210,7 @@ const RefundPolicy = () => {
           Contact Us via the following contact details:
         </h4>
         <p className="text-xs font-semibold md:text-sm xl:text-base">
-          Nest & Wheels Autos.
+          Nest Wheels Autos.
         </p>
         <ul className="list-disc pl-5 mt-2 space-y-1 text-xs md:text-sm xl:text-base">
           <li>
