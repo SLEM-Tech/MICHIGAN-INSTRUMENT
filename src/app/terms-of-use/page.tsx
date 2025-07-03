@@ -4,6 +4,7 @@ import AppLayout from "@src/components/AppLayout";
 import { useSearchParams } from "next/navigation";
 import { CompanyName } from "@constants";
 import RefundPolicy from "./_component/RefundPolicy";
+import DeliveryReturn from "./_component/DeliveryReturn";
 
 const Page = () => {
   const searchParams = useSearchParams().toString();
@@ -184,16 +185,7 @@ const Page = () => {
               </p>
             </div>
           )}
-          {activeTab === "deliveryReturn" && (
-            <div className="text-[#667085]">
-              <p className="mt-2 leading-[1.8] text-xs md:text-sm xl:text-base">
-                We want to emphasize that we do not assume responsibility for
-                damaged goods after use. We also do not take responsibility for
-                damage products after delivery has been confirmed. Our policy
-                includes replacement of factory-defective products.
-              </p>
-            </div>
-          )}
+          {activeTab === "deliveryReturn" && <DeliveryReturn/>}
           {activeTab === "refundPolicy" && <RefundPolicy />}
         </div>
       </main>
