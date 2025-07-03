@@ -4,7 +4,38 @@ import * as Iconbi from "react-icons/bi";
 import { toast } from "react-toastify";
 import React from "react";
 
-export const showToast = (message: string | undefined, success: boolean) => {
+// export const showToast = (message: string | undefined, success: boolean) => {
+//   const iconComponent = success ? (
+//     <div className="p-2 rounded-full mr-2 bg-green-500">
+//       <Iconbs.BsCheckCircle className="text-xl text-white" />
+//     </div>
+//   ) : (
+//     <div className="p-2 rounded-full mr-2 bg-red-500">
+//       <Iconbi.BiErrorCircle className="text-xl text-white" />
+//     </div>
+//   );
+
+//   toast[success ? "success" : "error"](
+//     <div className="text-sm font-semibold ml-5">{message}</div>,
+//     {
+//       hideProgressBar: false,
+//       closeOnClick: true,
+//       pauseOnHover: true,
+//       draggable: true,
+//       autoClose: 7000,
+//       icon: iconComponent,
+//       bodyClassName: "custom-toast-body",
+//     }
+//   );
+// };
+
+
+interface signInProps {
+  message: string | undefined;
+  success: boolean;
+}
+
+const FormToast = ({ message, success }: signInProps) => {
   const iconComponent = success ? (
     <div className="p-2 rounded-full mr-2 bg-green-500">
       <Iconbs.BsCheckCircle className="text-xl text-white" />
@@ -22,9 +53,13 @@ export const showToast = (message: string | undefined, success: boolean) => {
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
-      autoClose: 7000,
+      autoClose: 7000, // Delay of 7 seconds before closing
       icon: iconComponent,
       bodyClassName: "custom-toast-body",
     }
   );
+
+  return null; // Render nothing in the component's output
 };
+
+export default FormToast;
