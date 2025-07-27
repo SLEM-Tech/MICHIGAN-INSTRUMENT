@@ -5,7 +5,7 @@ import { SEODATA } from "@constants/seoContants";
 import { Metadata } from "next";
 import { HeroSection } from "@src/components/PageFragments/HeroSection";
 import { ShareYourSetup } from "@src/components/PageFragments/ShareYourSetup/ShareYourSetup";
-import { DiscoverySection } from "@src/components/PageFragments/DiscoverySection";
+import { TopCategorySection } from "@src/components/PageFragments/TopCategory";
 
 
 const { description, title } = SEODATA.home;
@@ -28,14 +28,12 @@ const page = () => {
 			<HeroSection />
 			
 			<main className='pt-5 lg:pt-12 md:px-8 mx-auto max-w-[1256px] sm:mt-3 mb-5'>
-				<DiscoverySection className=""/>
+				<TopCategorySection />
 				{/* <AllCategorySection /> */}
 				<div className='mt-4 sm:mt-12'>
 					<SortedProducts />
 				</div>
 			</main>
-			
-      		<ShareYourSetup />
 		</AppLayout>
 	);
 };

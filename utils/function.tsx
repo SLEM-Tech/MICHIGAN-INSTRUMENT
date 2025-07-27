@@ -19,3 +19,5 @@ export const LogoImage = ({ className }: LogoImageProps) => {
 		</Link>
 	);
 };
+
+

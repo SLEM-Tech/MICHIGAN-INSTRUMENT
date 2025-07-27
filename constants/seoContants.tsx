@@ -1,5 +1,6 @@
 const websiteUrl = "https://nest-wheel-auto.com";
-export const websiteName = "Nest Wheel Auto";
+export const websiteName =
+  "John-and-sons-innovation-technology-services-company-limited";
 export const SEODATA = {
 	defaultOGImage: ``,
 	default: {

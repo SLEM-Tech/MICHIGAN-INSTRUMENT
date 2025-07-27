@@ -89,54 +89,62 @@ const ProductCard2 = ({
 	const slugDesc = convertToSlug(description);
 
 	return (
-		<div
-			className={`flex flex-col gap-2 justify-center items-center min-w-[150px] md:min-w-[180px] slg:min-w-[180px] slg:max-w-[180px] h-[200px] sm:h-[230px] slg:h-[260px] cursor-pointer rounded-sm ${
-				boxShadow ? "shadow-lg bg-white" : "border-[1px] border-[#bfbfbf4f]"
-			} hover:shadow-lg hover:scale-105 transition`}
-		>
-			<div className='flex-[.8] w-full relative flex items-center justify-center overflow-hidden rounded-t-sm'>
-				<Link href={`/home-item/product/${slugDesc}-${id}`} className='w-full'>
-					<Picture
-						src={image || ""}
-						alt={`${description}-image`}
-						className='absolute top-0 object-contain object-center h-full w-full'
-						loading='eager'
-					/>
-				</Link>
-			</div>
-			<div className='flex-[.2] flex w-full flex-col px-2 pb-1'>
-				<div className='flex items-center justify-between'>
-					<h4 className='text-xs sm:text-base text-primary font-[400] leading-[1.8]'>
-						{NewAmount ? <FormatMoney2 value={NewAmount} /> : "Out of Stock"}
-					</h4>
-					<div
-						className={`flex items-center gap-1 rounded-md text-white p-1 text-xs sm:text-sm transition ${
-							cartItemCount !== 0 && "bg-primary"
-						}`}
-					>
-						{cartItemCount === 0 ? (
-							<RiShoppingBagFill
-								className='fill-primary text-2xl'
-								onClick={handleCartClick}
-							/>
-						) : (
-							<>
-								<AiOutlineMinus onClick={handleMinusCartClick} />
-								<span className=''>{cartItemCount}</span>
-								<AiOutlinePlus onClick={handlePlusCartClick} />
-							</>
-						)}
-					</div>
-				</div>
+    <div
+      className={`rounded-t-large border border-[#EDEDED] flex flex-col gap-2 justify-center items-center min-w-[150px] md:min-w-[180px] slg:min-w-[180px] slg:max-w-[180px] h-[200px] sm:h-[230px] slg:h-[260px] cursor-pointer rounded-sm ${
+        boxShadow ? "shadow-lg bg-white" : "border-[1px] border-[#bfbfbf4f]"
+      } hover:shadow-lg hover:scale-105 transition`}
+    >
+      <div className="flex-[.8] w-full relative flex items-center justify-center overflow-hidden rounded-t-sm">
+        <Link href={`/home-item/product/${slugDesc}-${id}`} className="w-full">
+          <Picture
+            src={image || ""}
+            alt={`${description}-image`}
+            className="absolute top-0 object-contain object-center h-full w-full"
+            loading="eager"
+          />
+          <div className="bg-[#54b22c] text-white text-[10px] absolute top-0 right-0 rounded-tr-large rounded-bl-large max-w-10 p-3 ">
+            50% OFF
+          </div>
+        </Link>
+      </div>
+      <div className="flex flex-col items-center">
+        <Link
+          href={`/home-item/product/${slugDesc}-${id}`}
+          dangerouslySetInnerHTML={{ __html: description }}
+          className="line-clamp-2 text-xs sm:text-sm text-text_color font-normal leading-[1.3] w-[8rem]"
+        />
+        <p className="text-[10px] text-[#54b22c]">(Buy 1 get 1 FREE)</p>
+      </div>
 
-				<Link
-					href={`/home-item/product/${slugDesc}-${id}`}
-					dangerouslySetInnerHTML={{ __html: description }}
-					className='line-clamp-2 text-xs sm:text-sm text-text_color font-semibold leading-[1.3] w-[8rem]'
-				/>
-			</div>
-		</div>
-	);
+      <div className="flex-[.2] flex w-full flex-col px-2 pb-1">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xs sm:text-xs text-[#222222] font-[400] leading-[1.8]">
+            {NewAmount ? <FormatMoney2 value={NewAmount} /> : "Out of Stock"}
+          </h4>
+          <div
+            className={`flex items-center gap-1 rounded-md text-white p-1 text-xs sm:text-sm transition ${
+              cartItemCount !== 0 && "bg-green-400"
+            }`}
+          >
+            {cartItemCount === 0 ? (
+              <div
+                onClick={handleCartClick}
+                className="bg-green-50 text-[#7fc561] text-xs px-2 py-1 border border-[#7fc561]"
+              >
+                ADD
+              </div>
+            ) : (
+              <>
+                <AiOutlineMinus onClick={handleMinusCartClick} />
+                <span className="">{cartItemCount}</span>
+                <AiOutlinePlus onClick={handlePlusCartClick} />
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ProductCard2;

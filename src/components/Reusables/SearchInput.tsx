@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { FaSearch } from "react-icons/fa";
 import { IoSearchOutline } from "react-icons/io5";
+import { HiListBullet } from "react-icons/hi2";
 
 interface SearchInputProps {
 	placeholder?: string;
@@ -48,31 +49,32 @@ const SearchInput: React.FC<SearchInputProps> = ({
 	};
 
 	return (
-		<div
-			className={`flex items-center border rounded-sm overflow-hidden ${className}`}
-		>
-			<input
-				type='text'
-				placeholder={placeholder}
-				className='flex-1 text-base text-black/70 pl-2 py-1 border-none outline-none bg-transparent transition'
-				value={currentSearchValue}
-				onChange={handleInputChange}
-				onKeyDown={handleKeyDown}
-			/>
+    <div
+      className={`flex items-center border rounded-sm overflow-hidden ${className}`}
+    >
+      {isLoading ? (
+        <ImSpinner2 className="animate-spin mx-auto" />
+      ) : (
+        <IoSearchOutline size={20} className="text-[#88c96f] mx-auto" />
+      )}
 
-			<button
-				type='button'
-				className='ptext-primary font-semibold transition bg-primary hover:text-primary focus:outline-none focus:ring focus:border-blue-300 text-xl size-8 rounded-full'
-				onClick={handleSearchClick}
-			>
-				{isLoading ? (
-					<ImSpinner2 className='animate-spin mx-auto' />
-				) : (
-					<IoSearchOutline className='text-white mx-auto' />
-				)}
-			</button>
-		</div>
-	);
+      <input
+        type="text"
+        placeholder={placeholder}
+        className="flex-1 text-base text-black/70 pl-2 py-1 border-none outline-none bg-transparent transition"
+        value={currentSearchValue}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+      />
+
+      <button
+        type="button"
+        className="text-[#3ba8d8] font-semibold transition hover:text-[#3ba8d8] focus:outline-none focus:ring focus:border-blue-300 text-xl size-8 rounded-full"
+        onClick={handleSearchClick}
+      >
+      </button>
+    </div>
+  );
 };
 
 export default SearchInput;

@@ -10,6 +10,7 @@ import {
 import Carousel from "@src/components/Reusables/Carousel";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
+import { IoChevronForward } from "react-icons/io5";
 
 export const Loader = () => (
 	<>
@@ -134,65 +135,75 @@ const SortedProducts = () => {
 						const TotalCategoryProductsMap =
 							categoryProductsMap[category?.id]?.length;
 						return (
-							<div
-								key={category?.id}
-								className='flex flex-col gap-5 sm:gap-16 justify-center mb-10 sm:mb-12'
-							>
-								<div className='w-full items-center flex justify-center'>
-									<Link
-										href={`${
-											"/category/" +
-											convertToSlug(category?.name) +
-											"-" +
-											category?.id
-										}`}
-										dangerouslySetInnerHTML={{ __html: category?.name }}
-										className='text-xl sm:text-3xl font-medium tracking-tight text-black capitalize'
-									/>
-								</div>
-								{/* Show loader when category products are loading */}
-								<Carousel
-									totalDataNumber={TotalCategoryProductsMap}
-									maxScrollTotal={maxScrollTotal}
-									scrollLeftTotal={scrollLeftTotal}
-									handleNext={handleNext}
-									handlePrev={handlePrev}
-								>
-									<div className='flex space-x-6 overflow-x-auto scroll-smooth overflow-y-hidden no-scrollbar max-w-[1256px]'>
-										{isLoading ? (
-											<Loader /> // Show loader when data is being fetched
-										) : (
-											<>
-												{categoryProductsMap[category?.id]?.map(
-													(product: ProductType) => (
-														<ProductCard2
-															key={product?.id}
-															id={product?.id}
-															image={product?.images[0]?.src}
-															oldAmount={product?.regular_price}
-															newAmount={product?.price}
-															description={product?.name}
-														/>
-													),
-												)}
-											</>
-										)}
-									</div>
-								</Carousel>
+              <div
+                key={category?.id}
+                className="flex flex-col gap-5 sm:gap-16 justify-center mb-10 sm:mb-12"
+              >
+                <div className="w-full items-center flex justify-between px-4 ">
+                  <span className="text-[18px] border-b-2 border-[#7fc561] ">
+                    <span className="xs:hidden text-gray-500 text-[30px] font-normal mr-2">
+                      Supersaver
+                    </span>
+                    <Link
+                      href={`${
+                        "/category/" +
+                        convertToSlug(category?.name) +
+                        "-" +
+                        category?.id
+                      }`}
+                      dangerouslySetInnerHTML={{ __html: category?.name }}
+                      className="text-[18px] text-left text-gray-500 py-1 sm:text-3xl font-normal tracking-tighttext-[#7fc561] capitalize"
+                    />
+                  </span>
 
-								<Link
-									href={`${
-										"/category/" +
-										convertToSlug(category?.name) +
-										"-" +
-										category?.id
-									}`}
-									className='bg-primary font-semibold w-fit capitalize hover:bg-primary transition-[.3] hover:scale-105 text-white py-3 px-5 sm:px-7 rounded-md text-xs sm:text-base'
-								>
-									See all products
-								</Link>
-							</div>
-						);
+                  <div className="xs:hidden flex items-center justify-center ">
+                    <Link
+                      href={`${
+                        "/category/" +
+                        convertToSlug(category?.name) +
+                        "-" +
+                        category?.id
+                      }`}
+                      className="mt-2 text-sm font-medium cursor-pointer text-[#303030] hover:underline"
+                    >
+                      view all
+                    </Link>
+                    <div className="mt-2 text-left">
+                      <IoChevronForward color="#7fc561" />
+                    </div>
+                  </div>
+                </div>
+                {/* Show loader when category products are loading */}
+                <Carousel
+                  totalDataNumber={TotalCategoryProductsMap}
+                  maxScrollTotal={maxScrollTotal}
+                  scrollLeftTotal={scrollLeftTotal}
+                  handleNext={handleNext}
+                  handlePrev={handlePrev}
+                >
+                  <div className="flex space-x-6 overflow-x-auto scroll-smooth overflow-y-hidden no-scrollbar max-w-[1256px]">
+                    {isLoading ? (
+                      <Loader /> // Show loader when data is being fetched
+                    ) : (
+                      <>
+                        {categoryProductsMap[category?.id]?.map(
+                          (product: ProductType) => (
+                            <ProductCard2
+                              key={product?.id}
+                              id={product?.id}
+                              image={product?.images[0]?.src}
+                              oldAmount={product?.regular_price}
+                              newAmount={product?.price}
+                              description={product?.name}
+                            />
+                          )
+                        )}
+                      </>
+                    )}
+                  </div>
+                </Carousel>
+              </div>
+            );
 					})}
 			</div>
 		</div>

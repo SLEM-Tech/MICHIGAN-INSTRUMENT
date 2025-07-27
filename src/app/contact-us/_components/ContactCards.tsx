@@ -15,7 +15,7 @@ const ContactCards = () => {
 		{
 			id: 1,
 			title: "Call Us",
-			icon: <FiPhoneCall className='text-primary text-2xl xl:text-4xl' />,
+			icon: <FiPhoneCall className='text-green-300 text-2xl xl:text-4xl' />,
 			type: "tel",
 			additionalText: GeneralSettings ? GeneralSettings[1]?.value : "N/A",
 		},
@@ -23,14 +23,14 @@ const ContactCards = () => {
 			id: 2,
 			title: "Email Us",
 			type: "email",
-			icon: <RxEnvelopeClosed className='text-primary text-2xl xl:text-4xl' />,
+			icon: <RxEnvelopeClosed className='text-green-300 text-2xl xl:text-4xl' />,
 			additionalText: GeneralSettings ? GeneralSettings[0]?.value : "N/A",
 		},
 		{
 			id: 3,
 			title: "Location",
 			type: "text",
-			icon: <IoLocationOutline className='text-primary text-2xl xl:text-4xl' />,
+			icon: <IoLocationOutline className='text-green-300 text-2xl xl:text-4xl' />,
 			description: GeneralSettings ? GeneralSettings[2]?.value : "N/A",
 		},
 		// Add more contact card data here if needed

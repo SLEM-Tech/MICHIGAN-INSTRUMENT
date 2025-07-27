@@ -2,9 +2,7 @@
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
-import audiImg from "@public/images/hero-section/audi-hero.png";
-import mercedesImg from "@public/images/hero-section/mercedes-hero.png";
-import volkswagenImg from "@public/images/hero-section/volkswagen-hero.png";
+import img1 from "@public/images/hero-section/hero-img1.png";;
 import React, { useEffect, useRef, useState } from "react";
 
 import { HeroSlide } from "../HeroSlide";
@@ -55,12 +53,8 @@ export const HeroSection = () => {
             }}
             interval={15000}
         >
-            <HeroSlide featureMessage="New Mercedes" brand="Mercedes-Benz" imgPath={mercedesImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/mercedes-hero.png')]"/>
-            <HeroSlide featureMessage="New Audi" brand="Audi" imgPath={audiImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/audi-hero.png')]"/>
-            <HeroSlide featureMessage="New Volkswagen" brand="Volkswagen" imgPath={volkswagenImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/volkswagen-hero.png')]"/>
-            <HeroSlide featureMessage="New Mercedes" brand="Mercedes-Benz" imgPath={mercedesImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/mercedes-hero.png')]"/>
-            <HeroSlide featureMessage="New Audi" brand="Audi" imgPath={audiImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/audi-hero.png')]"/>
-            <HeroSlide featureMessage="New Volkswagen" brand="Volkswagen" imgPath={volkswagenImg} hasButton imgClass="bg-[url('https://Autostyle.b-cdn.net/volkswagen-hero.png')]"/>
+            <HeroSlide featureMessage="50% off new plumbing items"  imgPath={img1}/>
+            <HeroSlide featureMessage="50% off new plumbing items"  imgPath={img1}/>
         </Carousel>
     );
 };
