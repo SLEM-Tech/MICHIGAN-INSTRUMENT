@@ -19,16 +19,20 @@ const montserrat = Montserrat({
 
 const { description, title } = SEODATA.default;
 export const metadata: Metadata = {
-	title: title,
-	description: description,
-	icons: SEODATA.defaultOGImage,
-	openGraph: {
-		images: [
-			{
-				url: SEODATA.defaultOGImage,
-			},
-		],
-	},
+  title: {
+    absolute: "",
+    default: "CCI Advanced Plumbing Tech and Technical Company Ltd",
+    template: "",
+  },
+  description: description,
+  icons: SEODATA.defaultOGImage,
+  openGraph: {
+    images: [
+      {
+        url: SEODATA.defaultOGImage,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
