@@ -50,7 +50,7 @@ export const generateUniqueReference = () => {
 	// return `Jolly_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 };
 
-export const CompanyName = "Nest Wheel Auto";
+export const CompanyName = "John and Sons Innovation Technology";
 
 export const splitText = (text: string) => {
 	return text.split(/(?=[A-Z])/).join(" ");
