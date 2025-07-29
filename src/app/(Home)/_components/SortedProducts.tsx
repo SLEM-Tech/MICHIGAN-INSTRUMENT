@@ -156,7 +156,7 @@ const SortedProducts = () => {
                     />
                   </span>
 
-                  <div className="xs:hidden flex items-center justify-center ">
+                  <div className="xs:hidden md:flex items-center justify-center ">
                     <Link
                       href={`${
                         "/category/" +
@@ -174,12 +174,14 @@ const SortedProducts = () => {
                   </div>
                 </div>
                 {/* Show loader when category products are loading */}
-                <Carousel
+                <Carousel 
                   totalDataNumber={TotalCategoryProductsMap}
                   maxScrollTotal={maxScrollTotal}
                   scrollLeftTotal={scrollLeftTotal}
                   handleNext={handleNext}
                   handlePrev={handlePrev}
+				  
+
                 >
                   <div className="flex space-x-6 overflow-x-auto scroll-smooth overflow-y-hidden no-scrollbar max-w-[1256px]">
                     {isLoading ? (

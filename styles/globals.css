@@ -37,6 +37,15 @@
 	}
 }
 
+.carousel .control-dots .dot {
+  background: #d8315b; /* your desired color */
+  box-shadow: none;    /* remove default shadows if needed */
+}
+
+.carousel .control-dots .dot.selected {
+  background: #d8315b; /* active dot color */
+}
+
 /* paginationStyles.css */
 
 body {

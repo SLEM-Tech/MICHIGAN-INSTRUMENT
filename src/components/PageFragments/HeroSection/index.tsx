@@ -39,22 +39,25 @@ export const HeroSection = () => {
     }, []);
 
     return (
+      <div className="lg:mt-[70px]">
         <Carousel
-            ref={carouselRef}
-            showArrows={true}
-            showThumbs={false}
-            showStatus={false}
-            infiniteLoop={true}
-            autoPlay={false}
-            selectedItem={currentSlide}
-            onChange={(index) => {
-                setCurrentSlide(index);
-                resetInterval();
-            }}
-            interval={15000}
+          ref={carouselRef}
+          showArrows={true}
+          showThumbs={false}
+          showStatus={false}
+          infiniteLoop={true}
+          autoPlay={false}
+          selectedItem={currentSlide}
+          onChange={(index) => {
+            setCurrentSlide(index);
+            resetInterval();
+          }}
+          interval={15000}
         >
-            <HeroSlide featureMessage="50% off new plumbing items"  imgPath={img1}/>
-            <HeroSlide featureMessage="50% off new plumbing items"  imgPath={img1}/>
+          <HeroSlide featureMessage="" imgPath={img1} />
+          <HeroSlide featureMessage="" imgPath={img1} />
+          <HeroSlide featureMessage="" imgPath={img1} />
         </Carousel>
+      </div>
     );
 };

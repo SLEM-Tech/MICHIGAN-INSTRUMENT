@@ -14,7 +14,7 @@ import { ClipLoader } from "react-spinners";
 import { useCart } from "react-use-cart";
 import AuthModal from "@src/components/modal/AuthModal";
 import Picture from "@src/components/picture/Picture";
-import { confetti } from "@public/images";
+import confetti from "@public/images/confetti.png"
 
 const Page = () => {
 	const { token } = useToken();

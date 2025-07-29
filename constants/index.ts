@@ -50,7 +50,7 @@ export const generateUniqueReference = () => {
 	// return `Jolly_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
 };
 
-export const CompanyName = "CCI Advanced Plumbing Tech and Technical Company Ltd";
+export const CompanyName = "Michgan Instrument Ltd";
 
 export const splitText = (text: string) => {
 	return text.split(/(?=[A-Z])/).join(" ");
@@ -1190,3 +1190,32 @@ export const currencyOptions: {
 		countryCode: "US", // Added country code for United States
 	},
 ];
+
+
+export const headerMenu: {
+	id?: string|number
+	label: string
+	path :string
+}[] = [
+	{
+		id: 1,
+		label: "Home",
+		path: "/",
+	},
+	{
+		id: 2,
+		label: "Browse",
+		path: "/browse",
+	},
+	{
+		id: 3,
+		label: "About",
+		path: "/about",
+	},
+	{
+		id: 4,
+		label: "FAQ",
+		path: "/faq",
+	}
+]
+

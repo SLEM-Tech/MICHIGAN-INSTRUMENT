@@ -44,7 +44,11 @@ import { CiDiscount1 } from "react-icons/ci";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiMenuAltLeft } from "react-icons/bi";
+import { ImMenu } from "react-icons/im";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import { headerMenu } from "@constants";
+import { BsCart4 } from "react-icons/bs";
+import { MdOutlinePersonOutline } from "react-icons/md";
 
 const Header = () => {
   const pathname = usePathname();
@@ -60,7 +64,11 @@ const Header = () => {
   const { baseCurrency } = useAppSelector((state) => state.currency);
   const dispatch = useAppDispatch();
   const [selectedCurrency, setSelectedCurrency] = useState(baseCurrency.code);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   // const { token } = useAppSelector((ele) => ele?.auth);
+
+  const isActive = (path: string) => pathname === path;
 
   const [drawerSize, setDrawerSize] = useState<number | string>(400); // Default size
 
@@ -239,301 +247,79 @@ const Header = () => {
     <>
       {/* Desktop */}
 
-      <header className="flex flex-col h-25 w-full z-50 fixed top-0 bg-white transition drop-shadow-md">
-        {/* Yellow background header */}
-        <div className="bg-[#f8cb47] py-4 h-4 flex w-full xs:px-1 lg:px-16 lg:items-center lg:justify-between">
-          <div className="xs:hidden lg:flex text-xs font-normal lg:w-full">
-            <p className="w-full">Delivery in 10 minutes</p>
-          </div>
-
-          <div className="flex text-xs gap-5 xs:justify-center xs:w-full ">
-            <Link className="flex gap-1 items-center" href={""}>
-              <MdOutlineLocationOn color="#fff" size={20} />
-              <p>Deliver to 423651</p>
-            </Link>
-            <Link className="flex gap-1 items-center" href={""}>
-              <TbTruckDelivery color="#fff" size={20} />
-              <p>Track your order</p>
-            </Link>
-            <Link className="flex gap-1 items-center" href={""}>
-              <CiDiscount1 color="#fff" size={20} />
-              <p>All Offers</p>
-            </Link>
-          </div>
+      <header className="xs:px-2 flex items-center justify-between h-30 py-4 md:px-20 w-full z-50 fixed top-0 bg-white transition drop-shadow-md">
+        {/* header logo */}
+        <div className="">
+          <Link href={"/"} className="text-4xl text-[#D62E55]">
+            Logo
+          </Link>
         </div>
 
-        {/* white background header */}
-
-        <div className="flex items-center justify-around w-full py-4 max-w-[1400px] z-30 px-14 xs:px-1 md:px-14">
-          {/* Flex section 1 */}
-          <div
-            onClick={toggleDrawer}
-            className="flex items-center gap-12 cursor-pointer"
-          >
-            <BiMenuAltLeft color="#88c96f" size={40} />
+        {/* menu options */}
+        <div className="xs:hidden lg:flex items-center justify-center gap-5  ">
+          <div className="flex items-center justify-between gap-5">
+            {headerMenu.map((menu, i) => (
+              <Link key={menu.id} href={menu.path}>
+                {menu.label}
+              </Link>
+            ))}
           </div>
-          {/* Flex section 2 */}
+          {/* search */}
           <div className="flex h-10 col-span-2">
             <SearchInput
-              className="flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.4rem] bg-[#f3f9fb] !rounded-sm outline-none focus:border-[#f3f9fb] focus:ring-1 transition"
-              placeholder="Search essentials, groceries and more..."
+              placeholder="...Search"
               searchValue={searchValue}
               setSearchQuery={setSearchValue}
               onSearch={handleSearch}
               isLoading={false}
             />
-          </div>
-          {/* Flex section 3 */}
-          <div className="flex justify-end gap-1">
-            <div
-              className="flex gap-2 justify-center items-center cursor-pointer border-r-1"
-              onClick={() => router.push("/cart")}
-            >
-              {typeof window !== "undefined" && (
-                <div className="flex relative justify-center items-center rounded-full size-9 p-2 text-sm">
-                  <span className="absolute top-[-2px] right-[1] size-4 text-[#88c96f] text-xs shadow-lg flex justify-center items-center rounded-full">
-                    {totalItems === 0 ? "" : totalItems}
-                  </span>
-                  <div className="flex items-center justify-right gap-1 ">
-                    <PiShoppingCartSimple className="fill-[#88c96f] size-6" />
-                    <p className="xs:hidden font-semibold text-sm text-[#88c96f]">
-                      Cart
-                    </p>
-                  </div>
-                </div>
-              )}
-              <span
-                className="truncate text-sm text-[#88c96f] font-semibold w-16 overflow-hidden"
-                title={`₦${calculateSubtotal().toString()}`}
-              >
-                <FormatMoney2 value={calculateSubtotal()} />
-              </span>
-            </div>
-
-            <div className="flex gap-2 justify-center items-center">
-              {wc_customer_info?.shipping?.address_2 ? (
-                <Picture
-                  src={wc_customer_info?.shipping?.address_2}
-                  alt={"user-image"}
-                  loading="eager"
-                  className="size-10 rounded-full object-contain"
-                />
-              ) : firstName ? (
-                <div className="flex justify-center items-center w-12 h-12">
-                  <span className="flex justify-center items-center w-10 h-10 rounded-full bg-gray-300 text-white text-xl font-semibold">
-                    {getFirstCharacter(firstName)}
-                  </span>
-                </div>
-              ) : (
-                <div className="flex">
-                  <UserIconSvg className="size-6 text-[#88c96f] font-bold" />
-                </div>
-              )}
-
-              <div className="flex flex-col text-[#88c96f] font-semibold text-sm">
-                {firstName ? (
-                  <div
-                    className="flex gap-1.5 items-center cursor-pointer group relative"
-                    // onClick={() => router.push("/user/dashboard")}
-                    onClick={handleisMobileNavClick}
-                  >
-                    <span
-                      title={firstName}
-                      className="line-clamp-1 overflow-y-hidden w-12"
-                    >
-                      {firstName}
-                    </span>
-                    <SlArrowDown className="text-primary group-hover:text-primary group-hover:translate-y-[2px] transition duration-400 ease-out" />
-                    <AnimatePresence>
-                      {isUserClick && (
-                        <motion.nav
-                          initial={{ y: -100, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          exit={{ y: -100, opacity: 0 }}
-                          className="flex flex-col text-black gap-3 pt-4 w-[9rem] bg-white absolute right-0 top-[1.5rem] rounded-2xl overflow-hidden cursor-pointer duration-500 ease-out drop-shadow-xl z-50 transition font-light"
-                        >
-                          {mobileDropDownLinks.map((item, i) => (
-                            <Link
-                              key={i}
-                              href={item.href}
-                              className={`${
-                                pathname === item.href
-                                  ? "text-primary"
-                                  : "text-black"
-                              } flex gap-1.5 px-4 items-center hover:text-primary`}
-                            >
-                              {item.icon}
-                              {item.label}
-                            </Link>
-                          ))}
-                          <span
-                            onClick={() => signOut()}
-                            className="text-center pt-1 pb-2 text-gray-500 hover:text-primary border-t"
-                          >
-                            Log Out
-                          </span>
-                        </motion.nav>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                ) : (
-                  <div className=" flex flex-col">
-                    <span
-                      className="cursor-pointer transition"
-                      onClick={() => router.push("/user/login")}
-                    >
-                      Log In
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Mobile */}
-        {/* <div className="flex flex-col items-center w-full slg:hidden px-2 xs:px-4 py-4">
-          <div className="flex items-center w-full justify-between">
-            <div className="flex items-center gap-1">
-              <GiHamburgerMenu
-                onClick={toggleDrawer}
-                className="text-3xl text-primary hover:scale-105 transition-[.5]"
-              />
-              <Link href="/" className="col-span-1">
-                <LogoImage className="w-[60px] h-fit" />
-              </Link>
-            </div>
+        <div className="flex items-center justify-center xs:gap-1 md:gap-2">
+          {/* hamburger menu for mobile */}
+          <div className="lg:hidden slg:hidden" onClick={toggleDrawer}>
+            <ImMenu color="#D62E55" />
+          </div>
 
-            <div className="flex gap-4 justify-center items-center cursor-pointer">
-              <Dropdown>
-                <DropdownTrigger className="">
-                  <button
-                    type="button"
-                    className="bg-white border border-primary hover:bg-black cursor-pointer transition-[.4] group text-primary text-xl group-hover:text-white rounded-full p-0 size-8"
-                  >
-                    {baseCurrency?.symbol}
-                  </button>
-                </DropdownTrigger>
+          {/* Login and signup  */}
 
-                <DropdownMenu
-                  aria-label="Select Base Currency"
-                  selectionMode="single"
-                  selectedKeys={new Set([selectedCurrency])}
-                  onSelectionChange={(keys) => {
-                    handleCurrencyChange(keys);
-                  }}
-                  className="bg-white rounded-md pb-4 text-sm lg:text-base"
-                >
-                  {currencyOptions.map((currency) => {
-                    const isSelected = selectedCurrency === currency.code;
-                    return (
-                      <DropdownItem
-                        key={currency.code}
-                        value={currency.code}
-                        className={`w-fit ${isSelected ? "text-primary" : ""}`}
-                      >
-                        {`${currency.country} | ${currency.code} (${currency.symbol})`}
-                      </DropdownItem>
-                    );
-                  })}
-                </DropdownMenu>
-              </Dropdown>
-              {firstName ? (
-                <div
-                  className="flex gap-1.5 items-center h-full cursor-pointer group relative"
-                  onClick={handleisMobileNavClick}
-                >
-                  {wc_customer_info?.shipping?.address_2 ? (
-                    <Picture
-                      src={wc_customer_info?.shipping?.address_2}
-                      alt={"user-image"}
-                      loading="eager"
-                      className="w-8 h-8 rounded-full object-contain"
-                    />
-                  ) : (
-                    <span className="flex justify-center items-center w-8 h-8 p-4 rounded-full bg-gray-300 text-white text-xl font-semibold">
-                      {getFirstCharacter(firstName)}
-                    </span>
-                  )}
-
-                  <SlArrowDown className="text-primary text-sm group-hover:text-primary group-hover:translate-y-[2px] transition duration-400 ease-out" />
-                  <AnimatePresence>
-                    {isUserClick && (
-                      <motion.nav
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -100, opacity: 0 }}
-                        className="flex flex-col text-black gap-3 pt-4 w-[9rem] bg-white absolute -left-12 top-[1.5rem] rounded-2xl overflow-hidden cursor-pointer duration-500 ease-out drop-shadow-xl z-50 transition font-light"
-                      >
-                        {mobileDropDownLinks.map((item, i) => (
-                          <div
-                            key={i}
-                            className="flex gap-2 px-4 items-center text-xs"
-                          >
-                            {item.icon}
-                            <Link
-                              href={item.href}
-                              className={`${
-                                pathname === item.href
-                                  ? "text-primary"
-                                  : "text-black"
-                              } hover:text-primary`}
-                            >
-                              {item.label}
-                            </Link>
-                          </div>
-                        ))}
-                        <span
-                          onClick={() => signOut()}
-                          className="text-center text-xs pt-1 pb-2 text-gray-500 hover:text-primary border-t"
-                        >
-                          Log Out
-                        </span>
-                      </motion.nav>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <UserIconSvg
-                  onClick={() => router.push("/user/login")}
-                  className="w-6 h-6"
-                />
-              )}
-
-              <div
-                className="flex gap-2 justify-center items-center cursor-pointer"
-                onClick={() => router.push("/cart")}
-              >
-                {typeof window !== "undefined" && (
-                  <div className="flex relative justify-center items-center rounded-full size-9 p-2 text-sm border">
-                    <span className="absolute -top-1 -right-1 size-4 bg-primary text-white text-xs shadow-lg flex justify-center items-center rounded-full">
-                      {totalItems}
-                    </span>
-                    <CartIconSvg className="fill-primary size-5" />
-                  </div>
-                )}
-                <span
-                  className={`truncate ${
-                    calculateSubtotal() > 0 ? "w-16" : ""
-                  } text-sm font-semibold overflow-hidden`}
-                  title={`₦${calculateSubtotal().toString()}`}
-                >
-                  <FormatMoney2 value={calculateSubtotal()} />
-                </span>
+          {isLoggedIn ? (
+            <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center">
+                <MdOutlinePersonOutline color="#D62E55" size={22} />
+                <p className="text-sm text-red-500">John</p>
+              </div>
+              <div className="flex items-center justify-center">
+                <BsCart4 color="#D62E55" size={20} />
+                <p className="text-sm text-red-500">Cart</p>
               </div>
             </div>
-          </div>
-          <div className="flex w-full h-10 mt-2 px-1">
-            <SearchInput
-              className="flex-1 text-base text-black/70 pl-4 pr-2 !py-1.5 h-[2.8rem] bg-gray-100/30 !rounded-full outline-none focus:border-primary focus:ring-1 transition"
-              placeholder="Search for products"
-              searchValue={searchValue}
-              setSearchQuery={setSearchValue}
-              onSearch={handleSearch}
-              isLoading={false}
-            />
-          </div>
-        </div> */}
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/user/login"
+                className={`xs:px-2 sm:text-xs sm:px-4 xs:py-1 px-6 lg:py-2 rounded-lg font-normal ${
+                  isActive("/user/login")
+                    ? "bg-[#D62E55] text-white"
+                    : "text- [#D62E55] bg-transparent"
+                }`}
+              >
+                Login
+              </Link>
+              <Link
+                href="/user/register"
+                className={`xs:px-2 sm:text-xs sm:px-4 xs:py-1 px-4 lg:py-2 rounded-lg font-normal ${
+                  isActive("/user/register")
+                    ? "bg-[#D62E55] text-white"
+                    : "text-[#D62E55] bg-transparent"
+                }`}
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
+        </div>
       </header>
 
       <Drawer
@@ -553,30 +339,43 @@ const Header = () => {
             onClick={toggleDrawer}
           />
         </div>
-        <div className="space-y-2 mt-5 lg:mt-10 w-fit">
+        <div className="border w-full flex flex-col items-center justify-center space-y-2 mt-5 lg:mt-10">
           <Link
             href={"/"}
             className={`relative w-fit group py-2 group transition hover: text-base xl:text-xl capitalize text-black-600 font-semibold line-clamp-1 ${
-              pathname === "/" && "text-[#88c96f]"
+              pathname === "/" && "text-[#D62E55]"
             }`}
           >
             Home
             <span
-              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#88c96f] transition-transform duration-500 ${
+              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#D62E55] transition-transform duration-500 ${
                 pathname === "/" ? "scale-x-100" : "scale-x-0"
               } transform origin-bottom-left group-hover:scale-x-100`}
             />
           </Link>
           <Link
-            href={"/contact-us"}
+            href={"/"}
             className={`relative w-fit group py-2 group transition hover: text-base xl:text-xl capitalize text-black-600 font-semibold line-clamp-1 ${
-              pathname === "/contact-us" && "text-[#88c96f]"
+              pathname === "/" && "text-[#D62E55]"
             }`}
           >
-            Contact
+            Browse
             <span
-              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#88c96f] transition-transform duration-500 ${
-                pathname === "/contact-us" ? "scale-x-100" : "scale-x-0"
+              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#D62E55] transition-transform duration-500 ${
+                pathname === "/browse" ? "scale-x-100" : "scale-x-0"
+              } transform origin-bottom-left group-hover:scale-x-100`}
+            />
+          </Link>
+          <Link
+            href={"/"}
+            className={`relative w-fit group py-2 group transition hover: text-base xl:text-xl capitalize text-black-600 font-semibold line-clamp-1 ${
+              pathname === "/" && "text-[#D62E55]"
+            }`}
+          >
+            About
+            <span
+              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#D62E55] transition-transform duration-500 ${
+                pathname === "/about" ? "scale-x-100" : "scale-x-0"
               } transform origin-bottom-left group-hover:scale-x-100`}
             />
           </Link>
@@ -586,23 +385,23 @@ const Header = () => {
               <>
                 <Popover.Button
                   className={`flex w-fit items-center justify-between gap-2.5 hover: group py-2 lg:pt-3 group transition ${
-                    open && "border-b-[3px] border-primary"
+                    open && "border-b-[3px] border-#D62E55"
                   }`}
                 >
-                  <h2 className="text-base xl:text-xl capitalize text-black-600 font-semibold line-clamp-1">
+                  <h2 className="text-base xl:text-xl capitalize text-[#D62E55] font-semibold line-clamp-1">
                     Category
                   </h2>
 
                   {open ? (
                     <IoIosArrowUp
-                      className={`text-lg group-hover:text-[#88c96f] ${
-                        open ? "text-[#88c96f]" : "text-black-600"
+                      className={`text-lg group-hover:text-[#D62E55] ${
+                        open ? "text-[#D62E55]" : "text-black-600"
                       }`}
                     />
                   ) : (
                     <IoIosArrowDown
-                      className={`text-lg group-hover:text-[#88c96f] ${
-                        open ? "text-[#88c96f]" : "text-black-600"
+                      className={`text-lg group-hover:text-[#D62E55] ${
+                        open ? "text-[#D62E55]" : "text-black-600"
                       }`}
                     />
                   )}
@@ -620,11 +419,11 @@ const Header = () => {
                     <Link
                       href="/category"
                       className={`flex items-center gap-2 group cursor-pointer text-sm xl:text-base ${
-                        pathname === `/category` ? "text-[#88c96f]" : ""
-                      } hover:text-[#88c96f] transition`}
+                        pathname === `/category` ? "text-[#D62E55]" : ""
+                      } hover:text-[#D62E55] transition`}
                     >
                       <h4
-                        className={`cursor-pointer group-hover:text-[#88c96f] font-medium transition`}
+                        className={`cursor-pointer group-hover:text-[#D62E55] font-medium transition`}
                         dangerouslySetInnerHTML={{ __html: "All" }}
                       />
                     </Link>
@@ -649,12 +448,12 @@ const Header = () => {
                                 "-" +
                                 item?.id
                               }`
-                                ? "text-[#88c96f]"
+                                ? "text-[#D62E55]"
                                 : "text-black-600"
-                            } hover:text-[#88c96f] transition`}
+                            } hover:text-[#D62E55] transition`}
                           >
                             <h4
-                              className={`cursor-pointer group-hover:text-[#88c96f] font-medium transition`}
+                              className={`cursor-pointer group-hover:text-[#D62E55] font-medium transition`}
                               dangerouslySetInnerHTML={{ __html: item?.name }}
                             />
                           </Link>
@@ -668,13 +467,13 @@ const Header = () => {
 
           <Link
             href={"/faq"}
-            className={`relative w-fit group py-2 group transition hover: text-base xl:text-xl capitalize text-black-600 font-semibold line-clamp-1 ${
-              pathname === "/faq" && "text-[#88c96f]"
+            className={`relative w-fit group py-2 group transition hover: text-base xl:text-xl capitalize text-[#D62E55] font-semibold line-clamp-1 ${
+              pathname === "/faq" && "text-[#D62E55]"
             }`}
           >
             Faqs
             <span
-              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#88c96f] transition-transform duration-500 ${
+              className={`absolute left-0 bottom-0 h-[3px] top-10 w-[70%] bg-[#D62E55] transition-transform duration-500 ${
                 pathname === "/faq" ? "scale-x-100" : "scale-x-0"
               } transform origin-bottom-left group-hover:scale-x-100`}
             />
