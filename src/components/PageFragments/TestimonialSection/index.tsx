@@ -121,6 +121,7 @@ const TestimonialSection = () => {
         >
           {testimony.map((test: TestimonyCard) => (
             <TestimonialCard
+              key={test.id}
               image={test.image}
               quote={test.quote}
               name={test.name}
