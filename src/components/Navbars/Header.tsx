@@ -301,18 +301,18 @@ const Header = () => {
                 href="/user/login"
                 className={`xs:px-2 sm:text-xs sm:px-4 xs:py-1 px-6 lg:py-2 rounded-lg font-normal ${
                   isActive("/user/login")
-                    ? "bg-[#D62E55] text-white"
-                    : "text- [#D62E55] bg-transparent"
+                    ? "bg-transparent text-[#D62E55]"
+                    : "text-gray-600 bg-transparent"
                 }`}
               >
                 Login
               </Link>
               <Link
                 href="/user/register"
-                className={`xs:px-2 sm:text-xs sm:px-4 xs:py-1 px-4 lg:py-2 rounded-lg font-normal ${
+                className={` xs:px-2 sm:text-xs sm:px-4 xs:py-1 px-4 lg:py-2 rounded-lg font-normal ${
                   isActive("/user/register")
-                    ? "bg-[#D62E55] text-white"
-                    : "text-[#D62E55] bg-transparent"
+                    ? "text-[#D62E55] bg-transparent"
+                    : "bg-[#D62E55] text-white"
                 }`}
               >
                 Sign up
