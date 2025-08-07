@@ -21,7 +21,7 @@ const ProductDisplaySection = ({ FormatedId }: ProductDisplaySectionProps) => {
 		isLoading: productWpIsLoading,
 		isError: productIsError,
 	} = useProduct(FormatedId);
-
+console.log(product);
 	const Product: ProductType = product;
 
 	// console.log("Product", Product);

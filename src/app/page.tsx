@@ -33,7 +33,7 @@ const page = () => {
   return (
     <AppLayout>
       <main className="flex flex-col gap-5">
-        <div>
+        <div className="xs:mt-20 md:mt-0">
           <HeroSection />
         </div>
         <div>

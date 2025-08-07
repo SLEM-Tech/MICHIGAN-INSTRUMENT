@@ -91,15 +91,6 @@ const Footer = () => {
       ],
     },
     {
-      title: "Products",
-      links: [
-        { label: "Product 1", href: "" },
-        { label: "Product 2", href: "" },
-        { label: "Product 3", href: "" },
-        { label: "Product 4", href: "" },
-      ],
-    },
-    {
       title: "Informatio",
       links: [
         { label: "FAQ", href: "/faq" },
@@ -131,12 +122,11 @@ const Footer = () => {
 
   return (
     <footer className="bg-white w-full py-2 flex flex-col item-center border-t-[3px] border-[#D62E55]">
-      <div className="mx-auto max-w-[1400px] w-full hidden slg:block">
-        <section className="flex justify-center gap-16 mt-2">
-          <div className="flex flex-col gap-4 w-[80%]">
-            <h2 className="p-6 font-bold">Logo</h2>
-          </div>
-
+      <div className="mx-[50px] max-w-[1400px] w-full hidden slg:flex justify-between">
+        <Link href="/" className="basis-2/4">
+          <LogoImage className="w-[75px] " />
+        </Link>
+        <section className="flex items-center justify-end gap-10 mt-2 basis-2/4">
           <div className="flex gap-4 w-full pt-3">
             {footerData.map((section, index) => (
               <div key={index} className="flex flex-col gap-4 lg:gap-5 w-full">
@@ -166,11 +156,13 @@ const Footer = () => {
       <div className="mx-auto flex w-full flex-col slg:hidden mb-4">
         <section className="flex flex-col justify-between gap-1 sm:gap-6 mt-2 px-2 xs:px-6 sm:px-10">
           <div className="flex w-full justify-between items-end gap-4">
-            <div className="xs:flex xs:items-center xs:justify-around xs:w-full">
-              Logo
-              <span className="text-secondary-300 text-xs sm:text-base leading-[1.6] font-[400]">
+            <div className="xs:flex xs:items-center xs:justify-between xs:w-full">
+              <Link href="/" className="">
+                <LogoImage className="w-[75px] " />
+              </Link>
+              <p className="text-secondary-300 text-xs sm:text-base leading-[1.6] font-[400]">
                 ..The best store for you!
-              </span>
+              </p>
             </div>
           </div>
 
