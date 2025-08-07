@@ -73,24 +73,24 @@ const Dashboard: React.FC<DashboardProps> = ({ children }) => {
 								href={item.href}
 								className={`p-3 text-base grid w-fit slg:flex slg:w-full items-center gap-3 rounded-md border ${
 									pathname.includes(item.href)
-										? "text-primary border-primary"
+										? "text-[#D62E55] border-[#D62E55]"
 										: "text-black"
-								} hover:bg-gray-50 w-full hover:text-primary`}
+								} hover:bg-gray-50 w-full hover:text-[#D62E55]`}
 							>
 								<item.icon
 									className='flex-shrink-0 h-8 w-8 slg:h-5 slg:w-5 cursor-pointer'
 									aria-hidden='true'
 								/>
-								<span className='inline-flex items-center justify-between text-xs slg:text-base font-medium w-full hover:text-primary'>
+								<span className='inline-flex items-center justify-between text-xs slg:text-base font-medium w-full hover:text-[#D62E55]'>
 									{item.title}
 								</span>
 							</Link>
 						))}
-						<span className='p-3 grid slg:flex items-center border gap-3 rounded-md hover:bg-gray-50 w-full hover:text-primary text-base cursor-pointer'>
+						<span className='p-3 grid slg:flex items-center border gap-3 rounded-md hover:bg-gray-50 w-full hover:text-[#D62E55] text-base cursor-pointer'>
 							<BiLogOut className='text-3xl slg:text-2xl' />
 							<button
 								onClick={handleLogOut}
-								className='inline-flex items-center justify-between font-medium text-xs slg:text-base w-full hover:text-primary'
+								className='inline-flex items-center justify-between font-medium text-xs slg:text-base w-full hover:text-[#D62E55]'
 							>
 								Logout
 							</button>

@@ -50,7 +50,7 @@ const MainCategorySection = () => {
 			{CategoryProducts && (
 				<>
 					{CategoryProducts?.length > 0 && (
-						<div className='w-full px-2 space-y-2'>
+						<div className='w-full px-2 space-y-2 xs:mt-10 md:mt-0'>
 							<Back />
 							<div className='flex w-fit gap-2 items-center text-xl sm:text-2xl font-medium tracking-tight text-black'>
 								<h4

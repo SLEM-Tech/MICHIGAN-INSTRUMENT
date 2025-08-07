@@ -2,6 +2,7 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { convertToSlug } from "@constants";
+import { FormatMoney2 } from "@src/components/Reusables/FormatMoney";
 
 export interface Book {
   id: number;
@@ -36,7 +37,9 @@ const DiscoveryCard: React.FC<{ book: Book }> = ({ book }) => {
           <p className="font-bold text-base text-blue-900 line-clamp-1">
             {book.title}
           </p>
-          <p className="text-red-500 font-semibold">{book.price}</p>
+          <p className="text-red-500 font-semibold">
+            {book?.price}
+          </p>
         </div>
       </Link>
     </div>

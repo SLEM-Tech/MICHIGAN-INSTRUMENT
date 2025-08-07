@@ -772,7 +772,13 @@ const Header = () => {
             {/* Login / Avatar */}
             <div
               className="flex items-center gap-1 text-[#D62E55] cursor-pointer"
-              onClick={handleisMobileNavClick}
+              onClick={() => {
+                if (!firstName) {
+                  router.push("/user/login");
+                } else {
+                  handleisMobileNavClick();
+                }
+              }}
             >
               {firstName ? (
                 wc_customer_info?.shipping?.address_2 ? (

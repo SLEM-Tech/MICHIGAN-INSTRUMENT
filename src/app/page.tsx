@@ -14,12 +14,14 @@ import TestimonialSection from "@src/components/PageFragments/TestimonialSection
 const { description, title } = SEODATA.home;
 export const metadata: Metadata = {
   title: {
-    absolute: "",
+    absolute: "Michigan Instrument Ltd",
     default: "Michigan Instrument Ltd",
     template: "",
   },
   description: description,
-  icons: SEODATA.defaultOGImage,
+  icons: {
+    icon: "/favicon.png", // or "/favicon.ico"
+  },
   openGraph: {
     images: [
       {

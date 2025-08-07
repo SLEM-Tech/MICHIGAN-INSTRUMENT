@@ -102,9 +102,9 @@ const ProductCard2 = ({
             className="absolute top-0 object-contain object-center h-full w-full"
             loading="eager"
           />
-          <div className="bg-[#54b22c] text-white text-[10px] absolute top-0 right-0 rounded-tr-large rounded-bl-large max-w-10 p-3 ">
+          {/* <div className="bg-[#D62E55] text-white text-[10px] absolute top-0 right-0 rounded-tr-large rounded-bl-large max-w-10 p-3 ">
             50% OFF
-          </div>
+          </div> */}
         </Link>
       </div>
       <div className="flex flex-col items-center">
@@ -113,7 +113,7 @@ const ProductCard2 = ({
           dangerouslySetInnerHTML={{ __html: description }}
           className="line-clamp-2 text-xs sm:text-sm text-text_color font-normal leading-[1.3] w-[8rem]"
         />
-        <p className="text-[10px] text-[#54b22c]">(Buy 1 get 1 FREE)</p>
+        <p className="text-[10px] text-[#D62E55]">(Buy 1 get 1 FREE)</p>
       </div>
 
       <div className="flex-[.2] flex w-full flex-col px-2 pb-1">
@@ -123,13 +123,13 @@ const ProductCard2 = ({
           </h4>
           <div
             className={`flex items-center gap-1 rounded-md text-white p-1 text-xs sm:text-sm transition ${
-              cartItemCount !== 0 && "bg-green-400"
+              cartItemCount !== 0 && "bg-[#D62E55]"
             }`}
           >
             {cartItemCount === 0 ? (
               <div
                 onClick={handleCartClick}
-                className="bg-green-50 text-[#7fc561] text-xs px-2 py-1 border border-[#7fc561]"
+                className="bg-white text-[#D62E55] text-xs px-2 py-1 border border-[#D62E55]"
               >
                 ADD
               </div>

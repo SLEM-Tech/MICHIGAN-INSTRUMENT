@@ -1,6 +1,6 @@
-const websiteUrl = "https://nest-wheel-auto.com";
+const websiteUrl = "https://michigan-instrument.vercel.app/";
 export const websiteName =
-  "John-and-sons-innovation-technology-services-company-limited";
+  "Michgan Instrument Ltd";
 export const SEODATA = {
 	defaultOGImage: ``,
 	default: {
