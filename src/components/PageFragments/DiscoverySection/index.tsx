@@ -9,11 +9,13 @@ import React, { useEffect, useRef, useState } from "react";
 import DiscoveryCard from "../DiscoveryCardSection";
 
 export type Book = {
-  id: number;
+  id: string | number;
   title: string;
   author: string;
-  price: string;
+  oldAmount?: string;
+  newAmount: string;
   image: string | StaticImageData;
+  description: string;
 };
 
 export const Loader = () => (
@@ -44,10 +46,11 @@ const SortedProducts = () => {
     id: product.id,
     title: product.name,
     author: product?.attributes?.[0]?.options?.[0] || "Unknown Author",
-    price: product?.price
+    newAmount: product?.price
       ? `₦${Number(product.price).toLocaleString()}`
       : "N/A",
     image: product?.images?.[0]?.src || "/placeholder.jpg",
+    description: product?.description || "No description available",
   });
 
   useEffect(() => {
@@ -164,7 +167,14 @@ const SortedProducts = () => {
                         key={book.id}
                         className="w-1/2 md:w-1/3 lg:w-1/4 max-w-[300px] shrink-0 px-2"
                       >
-                        <DiscoveryCard book={book} />
+                        <DiscoveryCard
+                          id={book?.id}
+                          author={book?.author}
+                          title={book?.title}
+                          image={book?.image}
+                          newAmount={book?.newAmount}
+                          description=""
+                        />
                       </div>
                     ))
                   )}
