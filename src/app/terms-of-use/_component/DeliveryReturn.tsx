@@ -2,104 +2,208 @@ import React from "react";
 
 const DeliveryReturn = () => {
   return (
-    <div className="text-[#667085]">
-      <h3 className="font-semibold text-center text-sm md:text-base xl:text-lg mb-4">
-        DELIVERY, SHIPPING & RETURN POLICY
+    <div id="deliveryReturn" className="text-[#667085]">
+      <h3 className="font-semibold text-sm md:text-base xl:text-lg mb-2">
+        PROFESSIONAL CONTENT DELIVERY POLICY - MICHIGAN INSTRUMENT LIMITED
       </h3>
 
-      <p className="text-sm mb-4">
-        Delivering your goods to you swiftly and safely is so important to us.
-        We value every single customer and that&apos;s why we trust our
-        deliveries to our carefully selected couriers. That is also why we
-        require that your orders be received and signed for by you. If you will
-        not be there personally, please let us know if you have an alternative
-        recipient (i.e. colleague, neighbour, etc.) who can receive the
-        delivery.
+      <p className="text-xs md:text-sm xl:text-base mb-4">
+        Michigan Instrument Limited ensures efficient delivery of professional
+        digital content and educational resources with comprehensive support
+        services designed for educational institutions, professional
+        organizations, and individual learners.
       </p>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-sm text-gray-700">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="border border-gray-300 px-4 py-2 font-bold text-left">
-                Orders Below – ₦3,000,000
-              </th>
-              <th className="border border-gray-300 px-4 py-2 font-bold text-left">
-                Orders Above – ₦3,000,000
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border border-gray-300 px-6 py-2 align-top">
-                <ul className="list-disc list-inside space-y-2">
-                  <li>
-                    Standard Delivery Method costs ₦15,000.00 within Lagos.
-                  </li>
-                  <li>
-                    Onforward Delivery Method costs ₦20,000.00 within Lagos.
-                  </li>
-                  <li>Order Arrival is (2 - 4 business days) within Lagos.</li>
-                  <li>The cost of Delivery outside Lagos is negotiable.</li>
-                  <li>Order Arrival is (5 - 7 business days) outside Lagos.</li>
-                  <li>
-                    Orders placed after 12pm will begin processing the next
-                    business day.
-                  </li>
-                </ul>
-              </td>
-              <td className="border border-gray-300 px-6 py-2 align-top">
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Standard Delivery Method is free within Lagos.</li>
-                  <li>Onforward Delivery Method is free within Lagos.</li>
-                  <li>Order Arrival is (2 - 4 business days) within Lagos.</li>
-                  <li>Standard Delivery Method outside Lagos is negotiable.</li>
-                  <li>Order Arrival is (5 - 7 business days) outside Lagos.</li>
-                  <li>
-                    Orders placed after 12pm will begin processing the next
-                    business day.
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="mt-4">
-        <p className="font-bold text-md">Other Delivery Information</p>
-        <ul className="list-disc list-inside space-y-2 text-sm">
+      <div className="mb-6">
+        <h4 className="font-medium text-xs md:text-sm xl:text-base mb-2">
+          Professional Content Access
+        </h4>
+        <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
           <li>
-            Nest and Wheels is not responsible for any damages caused after
-            delivery.
+            Immediate access to purchased professional content upon payment
+            verification
           </li>
           <li>
-            Nest and Wheels bears no responsibility for goods signed by an
-            alternative person.
+            Multi-device compatibility across computers, tablets, and mobile
+            devices
           </li>
           <li>
-            All claims for shortages or damages must be reported to customer
-            service on the day of delivery.
+            Professional-grade streaming with high-definition video and audio
+            quality
           </li>
           <li>
-            We are unable to redirect orders once items have been shipped.
+            Offline download capabilities for educational and training
+            environments
           </li>
           <li>
-            If you have any further queries regarding Nest and Wheels delivery,
-            kindly contact our customer service representative through email to
-            amarachinjoku@nestandwheels.com.ng
+            Cloud synchronization for seamless access across multiple devices
+            and locations
+          </li>
+          <li>
+            Institutional access management for educational organizations and
+            training departments
           </li>
         </ul>
       </div>
 
-      <div className="mt-2">
-        <p className="font-bold text-md mb-2">Return:</p>
-        <p className="text-sm mb-2">
-          Our policy includes replacement of factory-defective products.
-          However, we want to emphasize that we do not assume responsibility for
-          damaged goods after use. We also do not take responsibility for damage
-          products after delivery has been confirmed.
-        </p>
+      <div className="mb-6">
+        <h4 className="font-medium text-xs md:text-sm xl:text-base mb-2">
+          Educational Institution Services
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h5 className="font-medium text-xs md:text-sm mb-1">
+              Institutional Licensing
+            </h5>
+            <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+              <li>
+                Volume licensing for schools, universities, and training centers
+              </li>
+              <li>
+                Bulk access management with user provisioning and
+                de-provisioning
+              </li>
+              <li>
+                Institutional analytics and usage reporting for administrators
+              </li>
+              <li>
+                Integration with existing learning management systems (LMS)
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="font-medium text-xs md:text-sm mb-1">
+              Professional Development
+            </h5>
+            <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+              <li>
+                Continuing education credit tracking and certification
+                management
+              </li>
+              <li>Professional development pathway recommendations</li>
+              <li>Corporate training packages with progress monitoring</li>
+              <li>
+                Custom content curation for specific professional requirements
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="font-medium text-xs md:text-sm xl:text-base mb-2">
+          Content Quality & Technical Support
+        </h4>
+        <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+          <li>
+            Professional content quality assurance with expert review and
+            verification
+          </li>
+          <li>
+            Technical support for content access, download, and compatibility
+            issues
+          </li>
+          <li>
+            Educational technology integration assistance for institutional
+            users
+          </li>
+          <li>
+            Content updates and revisions provided automatically for subscribed
+            users
+          </li>
+          <li>
+            Accessibility features including closed captions, transcripts, and
+            screen reader compatibility
+          </li>
+          <li>
+            Multi-language support and international content localization when
+            available
+          </li>
+        </ul>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="font-medium text-xs md:text-sm xl:text-base mb-2">
+          Learning Management & Analytics
+        </h4>
+        <div className="space-y-3">
+          <div>
+            <p className="font-medium text-xs md:text-sm">Progress Tracking:</p>
+            <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+              <li>
+                Comprehensive learning progress tracking and completion
+                certificates
+              </li>
+              <li>Assessment and quiz integration with automated scoring</li>
+              <li>
+                Learning pathway recommendations based on professional goals
+              </li>
+              <li>Competency mapping and skills development tracking</li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-medium text-xs md:text-sm">
+              Institutional Analytics:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+              <li>Organizational learning analytics and engagement metrics</li>
+              <li>Professional development ROI measurement and reporting</li>
+              <li>
+                Curriculum effectiveness analysis and improvement
+                recommendations
+              </li>
+              <li>
+                Compliance tracking for professional education requirements
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-6">
+        <h4 className="font-medium text-xs md:text-sm xl:text-base mb-2">
+          Content Guarantee & Support Services
+        </h4>
+        <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+          <li>
+            Content accuracy guarantee with expert verification and regular
+            updates
+          </li>
+          <li>
+            Technical quality assurance for all audiovisual and digital content
+          </li>
+          <li>
+            Professional consultation for content selection and curriculum
+            development
+          </li>
+          <li>
+            Educational effectiveness guarantee with learning outcome
+            measurement
+          </li>
+          <li>
+            Priority support for institutional users and volume license holders
+          </li>
+          <li>
+            Custom content development services for specific professional
+            training needs
+          </li>
+        </ul>
+      </div>
+
+      <div className="mt-6 pt-4 border-t border-gray-200">
+        <h4 className="font-semibold text-xs md:text-sm xl:text-base mb-2">
+          Professional Content Support
+        </h4>
+        <ul className="list-disc pl-5 space-y-1 text-xs md:text-sm xl:text-base">
+          <li>Educational Support: education@michiganinstrument.com.ng</li>
+          <li>Technical Support: support@michiganinstrument.com.ng</li>
+          <li>Institutional Sales: institutional@michiganinstrument.com.ng</li>
+          <li>
+            Professional Development: professional@michiganinstrument.com.ng
+          </li>
+          <li>Phone: +234-801-234-5014</li>
+          <li>Website: www.michiganinstrument.com.ng</li>
+        </ul>
       </div>
     </div>
   );
