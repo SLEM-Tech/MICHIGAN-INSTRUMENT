@@ -32,7 +32,7 @@ export const theme = {
 				200: "#B0AC9F", // Muted medium gray
 			},
 			primary: "#F4A100", // Deep gold for primary accents
-			effect: "#FFD700", // Golden yellow for highlighting effects
+			effect: "#FFD700", // Golden yellow for highlighting effect
 			primaryColor: {
 				100: "#00BFFF", // Sky blue
 				200: "#0099CC", // Medium blue
