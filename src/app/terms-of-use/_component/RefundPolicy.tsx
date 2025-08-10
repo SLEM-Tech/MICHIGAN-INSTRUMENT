@@ -233,7 +233,7 @@ const RefundPolicy = () => {
         </li>
       </ul>
 
-      <div className="mt-6 pt-4 border-t border-gray-200">
+      {/* <div className="mt-6 pt-4 border-t border-gray-200">
         <h4 className="font-semibold text-xs md:text-sm xl:text-base mb-2">
           Contact Information
         </h4>
@@ -247,7 +247,7 @@ const RefundPolicy = () => {
           <li>Phone: +234-801-234-5014</li>
           <li>Website: www.michiganinstrument.com.ng</li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

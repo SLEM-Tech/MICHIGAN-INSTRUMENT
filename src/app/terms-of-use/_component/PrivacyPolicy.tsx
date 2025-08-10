@@ -127,10 +127,10 @@ const PrivacyPolicy = () => {
       <p className="mt-2 leading-[1.8] text-xs md:text-sm xl:text-base">
         Users have access to their complete educational records, progress
         tracking, and certification documentation. Learning analytics can be
-        customized for privacy preferences while maintaining educational
-        effectiveness. Institutional administrators have appropriate access to
+        customized for privacy preferences while maintaining educational effectiveness.
+        {/* effectiveness. Institutional administrators have appropriate access to
         organizational learning data. For educational privacy inquiries, contact
-        privacy@michiganinstrument.com.ng.
+        privacy@michiganinstrument.com.ng. */}
       </p>
     </div>
   );
