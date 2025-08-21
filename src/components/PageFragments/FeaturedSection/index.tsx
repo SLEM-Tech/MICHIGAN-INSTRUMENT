@@ -9,6 +9,8 @@ import img1 from "@public/images/featured-section/image1.png";
 import img2 from "@public/images/featured-section/image2.png";
 import img3 from "@public/images/featured-section/image3.png";
 import img4 from "@public/images/featured-section/image4.png";
+import img5 from "@public/images/featured-section/image5.jpg";
+import img6 from "@public/images/featured-section/image6.jpg";
 import { convertToSlug } from "@constants";
 import FeaturedSectionCard from "../FeaturedSectionCard";
 
@@ -23,14 +25,14 @@ export type AuthorCard = {
 const sampleBooks: AuthorCard[] = [
   {
     id: 1,
-    name: "Olivia Rhye",
+    name: "Elba Maurice",
     role: "Author and Writer",
     description: "Writes stories about love, life, and resilience.",
     image: img1,
   },
   {
     id: 2,
-    name: "John Doe",
+    name: "Olivia Rhye",
     role: "Author",
     description: "Creates thrilling mysteries with unexpected twists.",
     image: img2,
@@ -44,24 +46,24 @@ const sampleBooks: AuthorCard[] = [
   },
   {
     id: 4,
-    name: "Olivia Rhye",
+    name: "Jeremia Baker",
     role: "Author and Reader",
     description: "Shares stories inspired by everyday human experiences.",
     image: img4,
   },
   {
     id: 5,
-    name: "Jeremia Baker",
+    name: "Julia Coleman",
     role: "Author",
     description: "Brings history alive through vivid storytelling.",
-    image: img2,
+    image: img5,
   },
   {
     id: 6,
     name: "Danny Baker",
     role: "Author & Writer",
     description: "Creates fantasy adventures full of imagination.",
-    image: img1,
+    image: img6,
   },
 ];
 
