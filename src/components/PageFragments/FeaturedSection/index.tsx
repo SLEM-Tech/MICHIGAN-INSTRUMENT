@@ -24,46 +24,47 @@ const sampleBooks: AuthorCard[] = [
   {
     id: 1,
     name: "Olivia Rhye",
-    role: "Author and writer",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    role: "Author and Writer",
+    description: "Writes stories about love, life, and resilience.",
     image: img1,
   },
   {
-    id: 1,
+    id: 2,
     name: "John Doe",
     role: "Author",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    description: "Creates thrilling mysteries with unexpected twists.",
     image: img2,
   },
   {
-    id: 1,
+    id: 3,
     name: "Candice Craig",
-    role: "writer",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    role: "Writer",
+    description: "Explores romance and growth in heartfelt tales.",
     image: img3,
   },
   {
-    id: 1,
+    id: 4,
     name: "Olivia Rhye",
     role: "Author and Reader",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    description: "Shares stories inspired by everyday human experiences.",
     image: img4,
   },
   {
-    id: 1,
+    id: 5,
     name: "Jeremia Baker",
     role: "Author",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    description: "Brings history alive through vivid storytelling.",
     image: img2,
   },
   {
-    id: 1,
+    id: 6,
     name: "Danny Baker",
-    role: "Author & writer",
-    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
+    role: "Author & Writer",
+    description: "Creates fantasy adventures full of imagination.",
     image: img1,
   },
 ];
+
 
 const Loader = () => (
   <>
@@ -119,8 +120,8 @@ const FeaturedSection = () => {
         Our Featured Author
       </h2>
       <p className="text-gray-500 text-sm mb-10 max-w-xl mx-auto text-center">
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco boris nisi ut
-        aliquip ex ea commodo.
+        Get to know the voice behind the stories and explore their most
+        celebrated works.
       </p>
 
       <div className="w-full">

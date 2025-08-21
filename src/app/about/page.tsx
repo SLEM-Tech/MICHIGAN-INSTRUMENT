@@ -16,14 +16,16 @@ const page = () => {
             <h3 className="slg:text-2xl text-lg font-semibold text-center slg:text-start">
               Welcome to Michigan Instrument LTD
             </h3>
-            <p className="text-xs sm:text-sm slg:text-base !leading-[180%] text-black">
-              We are a distributor of major electronic brands in Nigeria. We
-              offer a wide range of high-quality appliances designed to meet the
-              diverse needs of our customers. Our products include; <br />{" "}
-              Kitchen Appliances, Laundry Appliances, office Equipment, Home
-              Comforts such as Air conditioners, heaters, fans e.t.c and Home
-              Entertainment Equipment such as TVs, Sound Systems, and multimedia
-              devices.
+            <p className="text-xs sm:text-sm slg:text-base !leading-[180%] text-black text-justify max-w-[700px]">
+              We are a leading distributor and retailer of books in Nigeria,
+              committed to inspiring a culture of reading and learning. Our
+              collection spans thousands of titles, carefully selected to meet
+              the needs of students, professionals, and everyday readers. From
+              educational textbooks, children&apos;s stories, and academic research
+              materials to fiction, non-fiction, self-development, and business
+              titles, we provide books that inform, entertain, and inspire.
+              Whether you prefer browsing in-store or shopping conveniently
+              online, we make it easy to discover your next great read.
             </p>
             {/* <p className='text-xs sm:text-sm slg:text-base !leading-[180%] text-black'>
 							We are a major Distributor to most Manufacturers of FMCG. Our
@@ -41,19 +43,19 @@ const page = () => {
             <div className="flex gap-4">
               <div className="flex flex-[.5] flex-col gap-4">
                 <Picture
-                  src="/images/super-discount-img.png"
+                  src="/images/discovery-section/image1.png"
                   alt=""
                   className="rounded-xl object-cover"
                 />
                 <Picture
-                  src="/images/super-discount-img.png"
+                  src="/images/discovery-section/image1.png"
                   alt=""
                   className="rounded-xl object-cover"
                 />
               </div>
               <div className="flex-1">
                 <Picture
-                  src="/images/super-discount-img.png"
+                  src="/images/discovery-section/image1.png"
                   alt=""
                   className="rounded-xl object-contain w-full"
                 />

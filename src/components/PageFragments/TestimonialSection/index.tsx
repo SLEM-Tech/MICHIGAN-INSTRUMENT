@@ -98,8 +98,8 @@ const TestimonialSection = () => {
           What Our Readers Says
         </h2>
         <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-xl mx-auto">
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco boris nisi
-          ut aliquip ex ea commodo.
+          Discover honest reviews and heartfelt experiences from fellow book
+          lovers.
         </p>
       </div>
 

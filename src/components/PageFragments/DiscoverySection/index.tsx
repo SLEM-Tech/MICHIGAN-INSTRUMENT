@@ -111,8 +111,7 @@ const SortedProducts = () => {
         Discover Your Next Book
       </h2>
       <p className="text-gray-500 text-sm mb-10 max-w-xl mx-auto text-center">
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-        ut aliquip ex ea commodo.
+        Uncover books that match your interests, mood, and imagination.
       </p>
 
       {isLoading && <MainLoader />}
