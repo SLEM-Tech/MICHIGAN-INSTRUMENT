@@ -54,7 +54,7 @@ export const theme = {
 				700: "#98AFC7", // Softer slate blue
 				800: "#B0C4DE", // Light steel blue
 			},
-			orange: "#FF4500", // Bright orange for attention-grabbing element
+			orange: "#FF4500", // Bright orange for attention-grabbing elements
 			green: {
 				100: "#B88E2F",
 			},
