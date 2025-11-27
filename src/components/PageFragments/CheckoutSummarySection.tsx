@@ -38,9 +38,6 @@ const CheckoutSummarySection = ({
       </div>
       <Link
          onClick={handleCheckoutClick}
-{/*         onClick={(e) => {
-          e.preventDefault(); // Prevent the link from navigating
-        }} */}
         href={calculateSubtotal() === 0 ? "/" : "/checkout"}
         className={`flex w-full justify-center items-center py-3 mt-4 rounded-md text-white ${
           calculateSubtotal() === 0
