@@ -12,12 +12,6 @@ interface CheckoutSummarySectionProps {
 const CheckoutSummarySection = ({
   calculateSubtotal,
 }: CheckoutSummarySectionProps) => {
-  const router = useRouter();
-
-  const handleCheckoutClick = () => {
-    router.push("/checkout");
-  };
-
   return (
     <section className="bg-white w-full flex flex-col px-5 sm:px-10 py-6 sm:py-12">
       <h5 className="text-base sm:text-2xl font-semibold">Summary</h5>
@@ -37,7 +31,6 @@ const CheckoutSummarySection = ({
         </h4>
       </div>
       <Link
-         onClick={handleCheckoutClick}
         href={calculateSubtotal() === 0 ? "/" : "/checkout"}
         className={`flex w-full justify-center items-center py-3 mt-4 rounded-md text-white ${
           calculateSubtotal() === 0
