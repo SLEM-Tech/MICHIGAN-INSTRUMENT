@@ -65,7 +65,7 @@ const LoginForm = () => {
 						}),
 					);
 
-					router.push("/checkout");
+					window.location.href = "/checkout";
 				} else {
 					toast.error("You can only be a customer to login to this platform.");
 				}
